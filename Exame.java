@@ -1,6 +1,7 @@
 package project;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 abstract class Exame {
 	
@@ -9,6 +10,7 @@ abstract class Exame {
 	ArrayList<Double> notas = new ArrayList<Double>();
 	ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 	private Docente docenteresponsavel;
+	private Date data;
 //	private Sala sala;
 	public Docente getDocenteresponsavel() {
 		return docenteresponsavel;
@@ -57,4 +59,11 @@ abstract class Exame {
 		}
 	}
 	abstract void addAluno(Aluno a);
+	
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
 }
