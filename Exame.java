@@ -11,7 +11,7 @@ abstract class Exame {
 	ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 	private Docente docenteresponsavel;
 	private Date data;
-//	private Sala sala;
+	private Sala sala;
 	public Docente getDocenteresponsavel() {
 		return docenteresponsavel;
 	}
@@ -65,5 +65,11 @@ abstract class Exame {
 	}
 	public void setData(Date data) {
 		this.data = data;
+	}
+	public Sala getSala() {
+		return sala;
+	}
+	public void setSala(Sala sala) {
+		this.sala = sala;
 	}
 }
