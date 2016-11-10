@@ -60,6 +60,7 @@ public class Sala {
         for (int i = 0; i < timeslots.size(); i++) {
             temp = timeslots.get(i);
             dur = duration.get(i);
+            //Find out how to use calendar
             comp = new Date(temp.getYear(), temp.getMonth(), temp.getDate(), temp.getHours(), 
                     temp.getMinutes() + dur);
             term = new Date(dt.getYear(), dt.getMonth(), dt.getDate(), dt.getHours(), 
