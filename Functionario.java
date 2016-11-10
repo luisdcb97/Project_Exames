@@ -1,9 +1,13 @@
 package project;
-
+/*
+ * @author Kwinten Jacobs
+ * @author Luis David
+ * @version 1.0
+ */
 abstract class Functionario extends Pessoa {
 	
 	private int mecano;
-	private String categoria;
+	protected String categoria;
 	
 	Functionario(String a, String b, int c, String d) {
 		super(a,b);
@@ -23,8 +27,6 @@ abstract class Functionario extends Pessoa {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
-
+	abstract void setCategoria(String categoria);
 }
+

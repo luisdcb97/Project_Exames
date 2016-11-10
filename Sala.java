@@ -1,14 +1,11 @@
 package project;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 import java.util.ArrayList;
 import java.util.Date;
-/**
- *
+/*
+ * @author Kwinten Jacobs
  * @author Luis David
+ * @version 1.0
  */
 public class Sala {
     private String id;
@@ -25,7 +22,7 @@ public class Sala {
         timeslots = new ArrayList<>();
         duration = new ArrayList<>();
         id = name;
-        //turn into method↓
+        //turn into method
         Date dat = new Date(y, m, d, h, min);
         reserveSala(dat,dur);
     }

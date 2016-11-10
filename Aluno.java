@@ -1,5 +1,9 @@
 package project;
-
+/*
+ * @author Kwinten Jacobs
+ * @author Luis David
+ * @version 1.0
+ */
 public class Aluno extends Pessoa {
 	
 	private int num;

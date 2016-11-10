@@ -2,13 +2,17 @@ package project;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+/*
+ * @author Kwinten Jacobs
+ * @author Luis David
+ * @version 1.0
+ */
 abstract class Exame {
 	
-	ArrayList<Docente> vigilantes = new ArrayList<Docente>();
-	ArrayList<NaoDocente> naodocentes = new ArrayList<NaoDocente>();
-	ArrayList<Double> notas = new ArrayList<Double>();
-	ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+	private ArrayList<Docente> vigilantes = new ArrayList<Docente>();
+	private ArrayList<NaoDocente> naodocentes = new ArrayList<NaoDocente>();
+	private ArrayList<Double> notas = new ArrayList<Double>();
+	protected ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 	private Docente docenteresponsavel;
 	private Date data;
 	private Sala sala;
