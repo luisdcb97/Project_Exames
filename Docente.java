@@ -1,43 +1,41 @@
 package project;
-/*
- * @author Kwinten Jacobs
- * @author Luis David
- * @version 1.0
- */
+
 public class Docente extends Functionario {
 	
-	private String area;
-	
-	Docente(String a, String b, int c, String d, String e){
-		super(a,b,c,d);
-		setArea(e);
-	}
+    private String area;
 
-	public String getArea() {
-		return area;
-	}
+    Docente(String nome, String email, int mecano, String d, String e){
+        super(nome,email,mecano,d);
+        setArea(e);
+    }
 
-	public void setArea(String area) {
-		this.area = area;
-	}
-	
-	public void setCategoria(String a) {
-		switch(a.toLowerCase()) {
-		case "assistente":
-			this.categoria = "Assistente";
-			break;
-		case "auxiliar":
-			this.categoria = "Auxiliar";
-			break;
-		case "associado":
-			this.categoria = "Associado";
-			break;
-		case "catedratico":
-			this.categoria = "Associado";
-			break;
-		default:
-			System.out.println("Invalid Input");
-		}
-	}
+    public String getArea() {
+        return area;
+    }
+    
+    public boolean setArea(String area) {
+        switch (area) {
+            case "Sistemas de Informacao":
+                break;
+            case "Comunicação e Telemática":
+                break;
+            case "Engenharia de Software":
+                break;
+            default:
+                System.out.println("Area de Investigacao invalida!\n Escolha entre [Licenciatura | Mestrado | Doutoramento]");
+                return false;
+        }
+        
+        this.area = area;
+        return true;
+    }
+    
+    @Override
+    public String toString() {
+        String str = "";
+        super.toString();
+        str += this.getArea();
+        return str;
+    }
 
 }
