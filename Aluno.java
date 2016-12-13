@@ -1,20 +1,16 @@
 package project;
-/*
- * @author Kwinten Jacobs
- * @author Luis David
- * @version 1.0
- */
+
 public class Aluno extends Pessoa {
 	
 	private int num;
 	private int ano;
 	private String regime;
 	
-	Aluno(String a, String b, int c, int d, String e) {
-		super(a,b);
-		setNum(c);
-		setAno(d);
-		setRegime(e);
+	Aluno(String nome, String email, int number, int year, String regime) {
+            super(nome,email);
+            setNum(number);
+            setAno(year);
+            setRegime(regime);
 	}
 
 	public int getNum() {
@@ -37,8 +33,25 @@ public class Aluno extends Pessoa {
 		return regime;
 	}
 
-	public void setRegime(String regime) {
-		this.regime = regime;
+	public boolean setRegime(String regime) {
+            switch (regime) {
+                case "Normal":
+                    break;
+                case "Trabalhador-estudante":
+                    break;
+                case "Atleta":
+                    break;
+                case "Dirigente Associativo":
+                    break;
+                case "Erasmus":
+                    break;
+                default:
+                    System.out.println("Regime invalido!\n Escolha entre [Licenciatura | Mestrado | Doutoramento]");
+                    return false;
+            }
+
+            this.regime = regime;
+            return true;
 	}
 
 }

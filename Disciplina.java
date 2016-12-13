@@ -1,18 +1,14 @@
 package project;
 
 import java.util.ArrayList;
-/*
- * @author Kwinten Jacobs
- * @author Luis David
- * @version 1.0
- */
+
 public class Disciplina {
 	
 	private String name;
 	private Docente docenteresponsavel;
-	protected ArrayList<Docente> docentes = new ArrayList<Docente>();
-	protected ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-	protected ArrayList<Exame> exames = new ArrayList<Exame>();
+	ArrayList<Docente> docentes = new ArrayList<Docente>();
+	ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+	ArrayList<Exame> exames = new ArrayList<Exame>();
 	
 	void listExams() {
 		ArrayList<ExameEspecial> especial = new ArrayList<ExameEspecial>();
@@ -31,15 +27,13 @@ public class Disciplina {
 		}
 		System.out.println("The normal exams of: "+getName());
 		for(int i = 0;i<normal.size();i++) {
-			System.out.println(normal.get(i).getData()+"  "+ normal.get(i).getSala().getId());
+			System.out.println(normal.get(i).getData());
 		}
-		System.out.println("The recurso exams of: "+getName());
 		for(int i = 0;i<recurso.size();i++) {
-			System.out.println(recurso.get(i).getData()+"  "+recurso.get(i).getSala().getId());
+			System.out.println(recurso.get(i).getData());
 		}
-		System.out.println("The especial exams of: "+getName());
 		for(int i = 0;i<especial.size();i++) {
-			System.out.println(especial.get(i).getData()+"  "+especial.get(i).getSala().getId());
+			System.out.println(especial.get(i).getData());
 		}
 	}
 
