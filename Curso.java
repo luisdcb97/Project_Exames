@@ -49,11 +49,26 @@ public class Curso {
     }
     public boolean setGrau(String grau) {
         switch (grau) {
-            case "Licenciatura":
+            case "L":
+                grau = "Licenciatura";
                 break;
-            case "Mestrado":
+            case "M":
+                grau = "Mestrado";
                 break;
-            case "Doutoramento":
+            case "D":
+                grau = "Doutoramento";
+                break;
+            default:
+                System.out.println("Grau invalido!\n Escolha entre [Licenciatura | Mestrado | Doutoramento]");
+                return false;
+        }
+        
+        switch (grau) {
+            case "Licenciatura": case "L":
+                break;
+            case "Mestrado": case "M":
+                break;
+            case "Doutoramento": case "D":
                 break;
             default:
                 System.out.println("Grau invalido!\n Escolha entre [Licenciatura | Mestrado | Doutoramento]");

@@ -32,7 +32,7 @@ public class NaoDocente extends Functionario {
     @Override
     public String toString() {
         String str = "";
-        super.toString();
+        str += super.toString();
         str += this.getCarga();
         return str;
     }

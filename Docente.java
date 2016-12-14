@@ -33,7 +33,7 @@ public class Docente extends Functionario {
     @Override
     public String toString() {
         String str = "";
-        super.toString();
+        str += super.toString();
         str += this.getArea();
         return str;
     }

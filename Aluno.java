@@ -2,56 +2,69 @@ package project;
 
 public class Aluno extends Pessoa {
 	
-	private int num;
-	private int ano;
-	private String regime;
-	
-	Aluno(String nome, String email, int number, int year, String regime) {
-            super(nome,email);
-            setNum(number);
-            setAno(year);
-            setRegime(regime);
-	}
+    private int num;
+    private int ano;
+    private String regime;
 
-	public int getNum() {
-		return num;
-	}
+    Aluno(String nome, String email, int number) {
+        super(nome,email);
+        setNum(number);
+    }
 
-	public void setNum(int num) {
-		this.num = num;
-	}
+    Aluno(String nome, String email, int number, int year, String regime) {
+        super(nome,email);
+        setNum(number);
+        setAno(year);
+        setRegime(regime);
+    }
 
-	public int getAno() {
-		return ano;
-	}
+    public int getNum() {
+            return num;
+    }
 
-	public void setAno(int ano) {
-		this.ano = ano;
-	}
+    public void setNum(int num) {
+            this.num = num;
+    }
 
-	public String getRegime() {
-		return regime;
-	}
+    public int getAno() {
+            return ano;
+    }
 
-	public boolean setRegime(String regime) {
-            switch (regime) {
-                case "Normal":
-                    break;
-                case "Trabalhador-estudante":
-                    break;
-                case "Atleta":
-                    break;
-                case "Dirigente Associativo":
-                    break;
-                case "Erasmus":
-                    break;
-                default:
-                    System.out.println("Regime invalido!\n Escolha entre [Licenciatura | Mestrado | Doutoramento]");
-                    return false;
-            }
+    public void setAno(int ano) {
+            this.ano = ano;
+    }
 
-            this.regime = regime;
-            return true;
-	}
+    public String getRegime() {
+            return regime;
+    }
 
+    public boolean setRegime(String regime) {
+        switch (regime) {
+            case "Normal":
+                break;
+            case "Trabalhador-estudante":
+                break;
+            case "Atleta":
+                break;
+            case "Dirigente Associativo":
+                break;
+            case "Erasmus":
+                break;
+            default:
+                System.out.println("Regime invalido!\n Escolha entre [Licenciatura | Mestrado | Doutoramento]");
+                return false;
+        }
+
+        this.regime = regime;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str += this.ano;
+        return str;
+    }
+
+        
 }

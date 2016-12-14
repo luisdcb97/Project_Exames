@@ -7,7 +7,7 @@ abstract class Pessoa {
     private String email;
 	
     public Pessoa(String nome, String email) {
-	setName(name);
+	setName(nome);
 	setEmail(email);
     }
 

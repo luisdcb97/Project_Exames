@@ -32,7 +32,7 @@ abstract class Functionario extends Pessoa {
                     break;
                 case "Associado":
                     break;
-                case "Catedrático":
+                case "Catedratico":
                     break;
                 default:
                     System.out.println("Categoria invalida!\n Escolha entre [Licenciatura | Mestrado | Doutoramento]");
@@ -43,13 +43,13 @@ abstract class Functionario extends Pessoa {
             switch (categoria) {
                 case "Assistente Operacional":
                     break;
-                case "Assistente Técnico":
+                case "Assistente Tecnico":
                     break;
-                case "Técnico Superior":
+                case "Tecnico Superior":
                     break;
-                case "Técnico de Informática":
+                case "Tecnico de Informatica":
                     break;
-                case "Especialista de Informática":
+                case "Especialista de Informatica":
                     break;
                 default:
                     System.out.println("Categoria invalida!\n Escolha entre [Licenciatura | Mestrado | Doutoramento]");
@@ -63,8 +63,8 @@ abstract class Functionario extends Pessoa {
     @Override
     public String toString() {
         String str = "";
-        super.toString();
-        str += this.getMecano() + " ";
+        str += super.toString();
+        str += String.format("%09d", this.getMecano()) + " ";
         str += this.getCategoria() + " ";
         return str;
     }
