@@ -6,18 +6,14 @@
 package project;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -213,9 +209,9 @@ public class Dei {
             
             while (true) {
                 System.out.println("Insira a area de investigacao do novo Docente");
-                System.out.println("SI/Sistemas de Informacao | CT/Comunicacao e Telematica | ES/Engenharia de Software");
+                System.out.println("SI/Sistemas de Informacao | CT/Comunicação e Telematica | ES/Engenharia de Software");
                 nova_area = scan.nextLine();
-                if(nova_area.equals("Sistemas de Informacao") || nova_area.equals("Comunicacao e Telematica") 
+                if(nova_area.equals("Sistemas de Informacao") || nova_area.equals("Comunicação e Telemática") 
                         || nova_area.equals("Engenharia de Software")){
                     
                     break;
@@ -225,7 +221,7 @@ public class Dei {
                     break;
                 }
                 else if(nova_area.equals("CT")){
-                    nova_area = "Comunicacao e Telematica";
+                    nova_area = "Comunicação e Telematica";
                     break;
                 }
                 else if(nova_area.equals("SI")){
@@ -310,27 +306,6 @@ public class Dei {
         } // </editor-fold>
     }
     //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="void createAluno(String nome, String email, int num)">
-    public void createAluno(String nome, String email, int num){
-        Aluno al = new Aluno(nome, email, num);
-        pessoa.add(al);
-    }
-//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="void createDocente(String nome, String email, int num, String categ, String area)">
-    public void createDocente(String nome, String email, int num, String categ, String area){
-        Docente dc = new Docente(nome, email, num, categ, area);
-        pessoa.add(dc);
-    }
-//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="void createNaoDocente(String nome, String email, int num, String categ, String cargo)">
-    public void createNaoDocente(String nome, String email, int num, String categ, String cargo){
-        NaoDocente ndc = new NaoDocente(nome, email, num, categ, cargo);
-        pessoa.add(ndc);
-    }
-//</editor-fold>
     
     public void removePessoa( String classe){
         // TODO remove alunos and vigilantes from exames
@@ -648,10 +623,9 @@ public class Dei {
         
         for (int i = 0; i < pessoa.size(); i++) {
             Pessoa get = pessoa.get(i);
-            escreve = get.toText();
+            escreve = get.toString();
             try {
                 bw.write(escreve, 0, escreve.length());
-                bw.write('\n');
                 count++;
             } catch (IOException ex) {
                 ex.printStackTrace();
@@ -659,115 +633,7 @@ public class Dei {
           
         }
         
-        try {
-            bw.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return;
-        }
-        
         System.out.println("Escreveu " + count+ " pessoas de " + pessoa.size() + " para o ficheiro "+ filename);
-    }
-//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="void readPessoasFromTXT()">
-    public void readPessoasFromTXT(){
-        String filename = "Pessoas.txt";
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(filename));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return;
-        }
-        
-        String lido;
-        int count = 0;
-        int lines = 0;
-        StringTokenizer tok;
-        String novo_nome;
-        String novo_email;
-        int novo_num;
-        String novo_categ;
-        String novo_area;
-        
-        while(true){
-            try {
-                lido = br.readLine();
-                lines++;
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                continue;
-            }
-            
-            if(lido == null){
-                break;
-            }
-            
-            tok = new StringTokenizer(lido,"|");
-            
-            if(!tok.hasMoreTokens()){
-                continue;
-            }
-            
-            novo_nome = tok.nextToken();
-            
-            
-            if(!tok.hasMoreTokens()){
-                continue;
-            }
-            
-            novo_email = tok.nextToken();
-            
-            if(!tok.hasMoreTokens()){
-                continue;
-            }
-            
-            novo_categ = tok.nextToken();
-            try{
-               novo_num = Integer.parseInt(novo_categ);  
-            } catch(NumberFormatException ex){
-                ex.printStackTrace();
-                continue;
-            }
-            
-            if(!tok.hasMoreTokens()){
-                createAluno(novo_nome, novo_email, novo_num);
-                count++;
-                continue;
-            }
-            
-            novo_categ = tok.nextToken();
-            
-            if(!tok.hasMoreTokens()){
-                continue;
-            }
-            
-            novo_area = tok.nextToken();
-            
-            switch (novo_categ) {
-                case "Assistente Operacional":
-                case "Assistente Tecnico":
-                case "Tecnico Superior":
-                case "Tecnico de Informatica":
-                case "Especialista de Informatica":
-                    createNaoDocente(novo_nome, novo_email, novo_num, novo_categ, novo_area);
-                    count++;
-                    break;
-                default:
-                    createDocente(novo_nome, novo_email, novo_num, novo_categ, novo_area);
-                    count++;
-            }
-        }
-        
-        try {
-            br.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return;
-        }
-        
-        System.out.println("Leu " + count+ " pessoas de " + pessoa.size() + " do ficheiro "+ filename);
     }
 //</editor-fold>
 }
