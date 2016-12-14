@@ -68,5 +68,14 @@ abstract class Functionario extends Pessoa {
         str += this.getCategoria() + " ";
         return str;
     }
+    
+    @Override
+    public String toText() {
+        String str = "";
+        str += super.toText() + "|";
+        str += String.format("%09d", this.getMecano()) + "|";
+        str += this.categoria;
+        return str;
+    }
         
 }

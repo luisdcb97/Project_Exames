@@ -4,9 +4,9 @@ public class Docente extends Functionario {
 	
     private String area;
 
-    Docente(String nome, String email, int mecano, String d, String e){
-        super(nome,email,mecano,d);
-        setArea(e);
+    Docente(String nome, String email, int mecano, String categ, String area){
+        super(nome,email,mecano,categ);
+        setArea(area);
     }
 
     public String getArea() {
@@ -17,7 +17,7 @@ public class Docente extends Functionario {
         switch (area) {
             case "Sistemas de Informacao":
                 break;
-            case "Comunicação e Telemática":
+            case "Comunicacao e Telematica":
                 break;
             case "Engenharia de Software":
                 break;
@@ -35,6 +35,14 @@ public class Docente extends Functionario {
         String str = "";
         str += super.toString();
         str += this.getArea();
+        return str;
+    }
+    
+    @Override
+    public String toText() {
+        String str = "";
+        str += super.toText() + "|";
+        str += this.area;
         return str;
     }
 

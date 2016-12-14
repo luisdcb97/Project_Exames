@@ -62,9 +62,19 @@ public class Aluno extends Pessoa {
     @Override
     public String toString() {
         String str = "";
-        str += this.ano;
+        str += super.toString();
+        str += this.num;
         return str;
     }
-
+    
+    @Override
+    public String toText() {
+        String str = "";
+        str += super.toText() + "|";
+        str += this.num ;
+        return str;
+    }
+    
+    
         
 }
