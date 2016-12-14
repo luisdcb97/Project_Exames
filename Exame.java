@@ -9,12 +9,14 @@ abstract class Exame {
     protected ArrayList<NaoDocente> naodocentes = new ArrayList<NaoDocente>();
     protected ArrayList<Double> notas = new ArrayList<Double>();
     protected ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-    protected ArrayList<Sala> sala = new ArrayList<Sala>();
+    protected Sala sala;
     protected Docente docenteresponsavel;
     protected Date data;
     protected int duration;
 	
+    public Exame(Docente responsavel, Sala local, Date hora, int tempo){
         
+    }
         
         
     public Docente getDocenteresponsavel() {

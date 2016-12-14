@@ -1,6 +1,12 @@
 package project;
 
+import java.util.Date;
+
 public class ExameEspecial extends Exame {
+
+    public ExameEspecial(Docente responsavel, Sala local, Date hora, int tempo) {
+        super(responsavel, local, hora, tempo);
+    }
 
     @Override
     public void addAluno(Aluno student) {

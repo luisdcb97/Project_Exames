@@ -5,8 +5,17 @@
  */
 package project;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,10 +24,12 @@ import java.util.Scanner;
 public class Dei {
     private ArrayList<Curso> cursos;
     private ArrayList<Pessoa> pessoa;
+    private ArrayList<Sala> salas;
 
     public Dei(){
         this.cursos = new ArrayList<>();
         this.pessoa = new ArrayList<>();
+        this.salas = new ArrayList<>();
     }
     
     public void listAllFunctionarios() {
@@ -53,6 +64,8 @@ public class Dei {
     }
     
     
+
+    //<editor-fold defaultstate="collapsed" desc="void createPessoa(String classe)">
     public void createPessoa(String classe){
         String novo_nome;
         String novo_email;
@@ -62,9 +75,10 @@ public class Dei {
         novo_nome = scan.nextLine();
         
         while (true) {
-            System.out.println("Insira o email da nova pessoa[@student.uc.pt]:");
+            System.out.println("Insira o email da nova pessoa[(20 carateres) + @student.uc.pt]:");
             novo_email = scan.nextLine();
-            if(novo_email.endsWith("@student.uc.pt") && novo_email.length() > "@student.uc.pt".length()){
+            if(novo_email.length() > 0 && novo_email.length()<20){
+                novo_email += "@student.uc.pt";
                 break;
             }
             System.out.println("Email invalido");
@@ -291,6 +305,55 @@ public class Dei {
             
         } // </editor-fold>
     }
+    //</editor-fold>
+    
+    public void removePessoa( String classe){
+        // TODO remove alunos and vigilantes from exames
+        int count;
+        switch (classe) {
+            case "aluno":
+                count = listPessoa("aluno");
+                break;
+            case "docente":
+                count = listPessoa("docente");
+                break;
+            case "nao docente":
+                count = listPessoa("nao docente");
+                break;
+            default:
+                return;
+        }
+        Scanner scan = new Scanner(System.in);
+        int choice;
+        
+        while(true){
+            System.out.println("Qual o "+ classe +" que quer remover[0-" + count +"]:");
+            while(!scan.hasNextInt()){
+                System.out.println("Insercao invalida! Insira um inteiro entre 0 e " + count);
+                scan.nextLine();
+            }
+            choice = scan.nextInt();
+            if(choice >= 0 && choice <= count){
+                break;
+            }
+        }
+        
+        if(count == 0){
+            System.out.println("Nao existem "+ classe + "s para remover!!!");
+            return;
+        }
+        
+        for (int i = 0; i < pessoa.size(); i++) {
+            Pessoa get = pessoa.get(i);
+            if(get.getClass().toString().equals(classe)){
+                
+                i++;
+            }
+            
+        }
+        
+        
+    }
     
     public int listPessoa(String classe){
         int count = 0;
@@ -305,18 +368,37 @@ public class Dei {
             case "nao docente":
                 classe = NaoDocente.class.toString();
                 break;
+            case "funcionario":
+                classe = Functionario.class.toString();
+                break;
             default:
                 classe = Pessoa.class.toString();
         }
         
+        if(pessoa.isEmpty()){
+            System.out.println("Nao existem pessoas para listar");
+            return 0;
+        }
+        
+        System.out.println("\n-------------------------------\n");
         for (int i = 0; i < pessoa.size(); i++) {
             Pessoa get = pessoa.get(i);
-            if(get.getClass().toString().equals(classe)){
+            if(classe.equals(Pessoa.class.toString())){
+                System.out.println(get);
+                count++;
+            }
+            else if(classe.equals(Functionario.class.toString()) && get.getClass() != Aluno.class){
+                System.out.println(get);
+                count++;
+            }
+            else if(get.getClass().toString().equals(classe)){
                 System.out.println(get);
                 count++;
             }
             
         }
+        System.out.println("\n-------------------------------\n");
+        
         return count;
     }
     
@@ -367,28 +449,15 @@ public class Dei {
     
     // <editor-fold defaultstate="collapsed" desc="void removeCurso()">
     public void removeCurso(){
-        Scanner scan = new Scanner(System.in);
         int escolha;
-        int list_size = listCursos();
         
-        if(list_size == 0){
+        escolha = escolheCurso();
+        
+        if(escolha == -1){
             System.out.println("Nao existem cursos para remover");
             return;
         }
-        
-        while(true){
-            System.out.println("Insira um inteiro entre 0 e " + list_size);
-            while(!scan.hasNextInt()){
-                System.out.println("Insercao invalida! Insira um inteiro entre 0 e " + list_size);
-                scan.nextLine();
-            }
-            escolha = scan.nextInt();
-            if(escolha >= 0 && escolha <= list_size){
-                break;
-            }
-        }
-        
-        if (escolha == 0) {
+        else if (escolha == 0) {
             System.out.println("A cancelar remocao de curso");
             return;
         }
@@ -426,15 +495,15 @@ public class Dei {
         
     } //</editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="void alteraDados(String altera)">
-    public void alteraDados(String altera){
+    //<editor-fold defaultstate="collapsed" desc="int escolheCurso()">
+    public int escolheCurso(){
         Scanner scan = new Scanner(System.in);
         int escolha;
         int list_size = listCursos();
         
         if(list_size == 0){
-            System.out.println("Nao existem cursos para alterar");
-            return;
+            System.out.println("Nao existem cursos");
+            return -1;
         }
         
         while(true){
@@ -445,12 +514,23 @@ public class Dei {
             }
             escolha = scan.nextInt();
             if(escolha >= 0 && escolha <= list_size){
-                scan.nextLine();
                 break;
             }
         }
+        return escolha;
+    }
+//</editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="void alteraDados(String altera)">
+    public void alteraDados(String altera){
+        Scanner scan = new Scanner(System.in);
+        int escolha = escolheCurso();
         
-        if (escolha == 0) {
+        if(escolha == -1){
+            System.out.println("Nao existem cursos para alterar");
+            return;
+        }
+        else if (escolha == 0) {
             System.out.println("A cancelar alteracao de curso");
             return;
         }
@@ -499,4 +579,61 @@ public class Dei {
         System.out.println(" " + "alterado");
        
     } //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="void setCurso(int index, Curso insere)">
+    public void setCurso(int index, Curso insere){
+        Curso novo;
+        
+        if(index > this.cursos.size()){
+            return;
+        }
+        
+        novo = cursos.set(index, insere);
+        
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Curso getCurso(int index)">
+    public Curso getCurso(int index){
+        Curso novo;
+        
+        if(index > this.cursos.size()){
+            return null;
+        }
+        
+        novo = cursos.get(index);
+        
+        return novo;
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="void writePessoasToTXT()">
+    public void writePessoasToTXT(){
+        String filename = "Pessoas.txt";
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(filename));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return;
+        }
+        
+        String escreve;
+        int count = 0;
+        
+        for (int i = 0; i < pessoa.size(); i++) {
+            Pessoa get = pessoa.get(i);
+            escreve = get.toString();
+            try {
+                bw.write(escreve, 0, escreve.length());
+                count++;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+          
+        }
+        
+        System.out.println("Escreveu " + count+ " pessoas de " + pessoa.size() + " para o ficheiro "+ filename);
+    }
+//</editor-fold>
 }
