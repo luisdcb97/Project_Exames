@@ -25,6 +25,13 @@ public class Main {
         Dei departamento = new Dei();
         Scanner scan = new Scanner(System.in);
         
+        /*departamento.createAluno("luis", "luis@student.uc.pt", 2015237627);
+        departamento.createAluno("artur", "artur@student.uc.pt", 2014237627);
+        departamento.createDocente("vasco", "vasco@student.uc.pt", 123, "Catedratico" , "Engenharia de Software");
+        departamento.createDocente("granjal", "granjal@student.uc.pt", 1, "Auxiliar" , "Sistemas de Informacao");
+        departamento.createNaoDocente("lara", "lara@student.uc.pt", 98765432, "Tecnico Superior" , "Apoio Tecnico");
+        */
+        departamento.readPessoasFromTXT();
         while(true){
             menu_main(departamento);
         }
@@ -92,6 +99,8 @@ public class Main {
                 System.out.println(choice);
                 break;
             case 0:
+                System.out.println("Writing to Files...");
+                departamento.writePessoasToTXT();
                 System.out.println("Exiting...");
                 System.exit(0);
                 break;
