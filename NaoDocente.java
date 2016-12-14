@@ -3,9 +3,9 @@ package project;
 public class NaoDocente extends Functionario {
     private String cargo;
 	
-    public NaoDocente(String a, String b, int c, String d, String e) {
-        super(a,b,c,d);
-        setCarga(e);
+    public NaoDocente(String nome, String email, int mecano, String categ, String cargo) {
+        super(nome,email,mecano,categ);
+        setCarga(cargo);
     }
 
     public String getCarga() {
@@ -18,7 +18,7 @@ public class NaoDocente extends Functionario {
                 break;
             case "Financeiro":
                 break;
-            case "Apoio Técnico":
+            case "Apoio Tecnico":
                 break;
             default:
                 System.out.println("Cargo invalido!\n Escolha entre [Secretaria | Financeiro | Apoio Técnico]");
@@ -34,6 +34,14 @@ public class NaoDocente extends Functionario {
         String str = "";
         str += super.toString();
         str += this.getCarga();
+        return str;
+    }
+    
+    @Override
+    public String toText() {
+        String str = "";
+        str += super.toText() + "|";
+        str += this.cargo;
         return str;
     }
 }

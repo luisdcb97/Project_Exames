@@ -34,4 +34,11 @@ abstract class Pessoa {
         str += this.getEmail() + " ";
         return str;
     }
+    
+    public String toText() {
+        String str = "";
+        str += this.name +"|";
+        str += this.email;
+        return str;
+    }
 }
