@@ -80,9 +80,7 @@ public class Main {
         System.out.println("[1] Criar Curso");
         System.out.println("[2] Remover Curso");
         System.out.println("[3] Listar Cursos");
-        System.out.println("[4] Gerir Disciplinas do curso");
-        System.out.println("[5] Alterar Duracao");
-        System.out.println("[6] Alterar Grau");
+        System.out.println("[4] Gerir curso");
         System.out.println("[0] Voltar");
         System.out.println("\nInsira a sua escolha:");
 
@@ -108,7 +106,7 @@ public class Main {
                 int escolha = departamento.escolheCurso();
 
                 if(escolha == -1){
-                    System.out.println("Nao existem cursos para remover");
+                    System.out.println("Nao existem cursos");
                     break;
                 }
                 else if (escolha == 0) {
@@ -118,15 +116,9 @@ public class Main {
                 
                 Curso altera = departamento.getCurso(escolha-1);
                 
-                while(menu_disciplinas(departamento, altera) != 0);
+                while(menu_disciplinas(departamento, altera, escolha-1) != 0);
                     
-                departamento.setCurso(escolha-1, altera);
-                break;
-            case 5:
-                departamento.alteraDados("grau");
-                break;
-            case 6:
-                departamento.alteraDados("duracao");
+                
                 break;
             case 0:
                 System.out.println("Returning to Main Menu...");
@@ -201,15 +193,17 @@ public class Main {
         return choice;
     }
     
-    private static int menu_disciplinas(Dei departamento, Curso curso){
+    private static int menu_disciplinas(Dei departamento, Curso curso, int index){
         int choice;
         Scanner scan = new Scanner(System.in);
         
-        System.out.println("=================== MENU DISCIPLINAS DE " +curso.getNome().toUpperCase()+ " =======================\n");
+        System.out.println("=================== MENU DE " +curso.toString().toUpperCase()+ " =======================\n");
         System.out.println("[1] Adicionar Disciplina");
         System.out.println("[2] Remover Disciplina");
         System.out.println("[3] Listar Disciplinas");
-        System.out.println("[4] Gerir Exames");
+        System.out.println("[4] Alterar Duracao");
+        System.out.println("[5] Alterar Grau");
+        System.out.println("[6] Gerir Exames");
         System.out.println("[5] Adicionar Docente");
         System.out.println("[6] Adicionar Aluno");
         System.out.println("[0] Voltar");
@@ -234,6 +228,12 @@ public class Main {
                 curso.listDisciplinas();
                 break;
             case 4:
+                curso.alteraDados("duracao");
+                break;
+            case 5:
+                curso.alteraDados("grau");
+                break;
+            case 6:
                 System.out.println(choice);
                 break;
             case 0:
@@ -243,6 +243,7 @@ public class Main {
                 System.out.println("Escolha Invalida!");
         }
         
+        departamento.setCurso(index, curso);
         System.out.println("Prima ENTER para continuar");
         scan.nextLine();
         return choice;

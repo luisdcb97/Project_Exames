@@ -531,65 +531,6 @@ public class Dei {
     }
 //</editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="void alteraDados(String altera)">
-    public void alteraDados(String altera){
-        Scanner scan = new Scanner(System.in);
-        int escolha = escolheCurso();
-        
-        if(escolha == -1){
-            System.out.println("Nao existem cursos para alterar");
-            return;
-        }
-        else if (escolha == 0) {
-            System.out.println("A cancelar alteracao de curso");
-            return;
-        }
-
-        Curso cur = cursos.get(escolha-1);
-        
-        if(altera.equalsIgnoreCase("grau")){
-            String novo_grau;
-            while(true){
-                System.out.println("Insira o grau do novo curso[ L/Licenciatura | M/Mestrado | D/Doutoramento]:");
-                novo_grau = scan.nextLine();
-                if(novo_grau.equals("Licenciatura") || novo_grau.equals("Mestrado") || novo_grau.equals("Doutoramento")
-                        || novo_grau.equals("L") || novo_grau.equals("M") || novo_grau.equals("D")){
-                    break;
-                }
-
-                System.out.println("Insercao invalida!!!");
-            }
-            
-            cur.setGrau(novo_grau);
-            cursos.set(escolha-1, cur);
-        }
-        else if(altera.equalsIgnoreCase("duracao")){
-            int nova_dur;
-            while(true){
-                System.out.println("Insira a duracao do novo curso em anos [3-9]:");
-                while(!scan.hasNextInt()){
-                    System.out.println("Insercao invalida! Insira um inteiro entre 3 e 9");
-                    scan.nextLine();
-                }
-                nova_dur = scan.nextInt();
-                if(nova_dur >=3 && nova_dur <= 9){
-                    break;
-                }
-
-                System.out.println("Insercao invalida!!!");
-            }
-            
-            cur.setDuracao(nova_dur);
-            cursos.set(escolha-1, cur);
-        }
-        
-        
-        System.out.print("Curso ");
-        System.out.print(cur);
-        System.out.println(" " + "alterado");
-       
-    } //</editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="ArrayList<Curso> getCursos()">
     public ArrayList<Curso> getCursos(){
         return this.cursos;

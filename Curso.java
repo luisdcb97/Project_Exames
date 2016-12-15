@@ -137,6 +137,52 @@ public class Curso implements Serializable{
 //</editor-fold>
     
     
+    // <editor-fold defaultstate="collapsed" desc="void alteraDados(String altera)">
+    public void alteraDados(String altera){
+        Scanner scan = new Scanner(System.in);
+        
+        if(altera.equalsIgnoreCase("grau")){
+            String novo_grau;
+            while(true){
+                System.out.println("Insira o grau do novo curso[ L/Licenciatura | M/Mestrado | D/Doutoramento]:");
+                novo_grau = scan.nextLine();
+                if(novo_grau.equals("Licenciatura") || novo_grau.equals("Mestrado") || novo_grau.equals("Doutoramento")
+                        || novo_grau.equals("L") || novo_grau.equals("M") || novo_grau.equals("D")){
+                    break;
+                }
+
+                System.out.println("Insercao invalida!!!");
+            }
+            
+            this.setGrau(novo_grau);
+        }
+        else if(altera.equalsIgnoreCase("duracao")){
+            int nova_dur;
+            while(true){
+                System.out.println("Insira a duracao do novo curso em anos [1-9]:");
+                while(!scan.hasNextInt()){
+                    System.out.println("Insercao invalida! Insira um inteiro entre 1 e 9");
+                    scan.nextLine();
+                }
+                nova_dur = scan.nextInt();
+                if(nova_dur >=1 && nova_dur <= 9){
+                    break;
+                }
+
+                System.out.println("Insercao invalida!!!");
+            }
+            
+            this.setDuracao(nova_dur);
+        }
+        
+        
+        System.out.print("Curso ");
+        System.out.print(this.getNome());
+        System.out.println(" " + "alterado");
+       
+    } //</editor-fold>
+    
+    
     //<editor-fold defaultstate="collapsed" desc="Duracao get/set">
     public int getDuracao() {
         return duracao;
