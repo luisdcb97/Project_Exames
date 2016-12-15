@@ -5,16 +5,17 @@
  */
 package project;
 
-import java.io.BufferedOutputStream;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -26,6 +27,8 @@ import java.util.logging.Logger;
  * @author Luis David
  */
 public class Dei {
+    private static final long serialVersionUID = 503L;
+    
     private ArrayList<Curso> cursos;
     private ArrayList<Pessoa> pessoa;
     private ArrayList<Sala> salas;
@@ -332,54 +335,7 @@ public class Dei {
     }
 //</editor-fold>
     
-    public void removePessoa( String classe){
-        // TODO remove alunos and vigilantes from exames
-        int count;
-        switch (classe) {
-            case "aluno":
-                count = listPessoa("aluno");
-                break;
-            case "docente":
-                count = listPessoa("docente");
-                break;
-            case "nao docente":
-                count = listPessoa("nao docente");
-                break;
-            default:
-                return;
-        }
-        Scanner scan = new Scanner(System.in);
-        int choice;
-        
-        while(true){
-            System.out.println("Qual o "+ classe +" que quer remover[0-" + count +"]:");
-            while(!scan.hasNextInt()){
-                System.out.println("Insercao invalida! Insira um inteiro entre 0 e " + count);
-                scan.nextLine();
-            }
-            choice = scan.nextInt();
-            if(choice >= 0 && choice <= count){
-                break;
-            }
-        }
-        
-        if(count == 0){
-            System.out.println("Nao existem "+ classe + "s para remover!!!");
-            return;
-        }
-        
-        for (int i = 0; i < pessoa.size(); i++) {
-            Pessoa get = pessoa.get(i);
-            if(get.getClass().toString().equals(classe)){
-                
-                i++;
-            }
-            
-        }
-        
-        
-    }
-    
+    //<editor-fold defaultstate="collapsed" desc="int listPessoa(String classe)">
     public int listPessoa(String classe){
         int count = 0;
         
@@ -426,6 +382,40 @@ public class Dei {
         
         return count;
     }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Pessoa getPessoa(String classe, int index)">
+    public Pessoa getPessoa(String classe, int index){
+        int count = 0;
+        
+        switch (classe) {
+            case "aluno":
+                classe = Aluno.class.toString();
+                break;
+            case "docente":
+                classe = Docente.class.toString();
+                break;
+            case "nao docente":
+                classe = NaoDocente.class.toString();
+                break;
+            default:
+                classe = Pessoa.class.toString();
+        }
+        
+        for (int i = 0; i < pessoa.size(); i++) {
+            Pessoa get = pessoa.get(i);
+            if(get.getClass().toString().equals(classe)){
+                if(count == index){
+                    return get;
+                }
+                count++;
+            }
+        }
+        
+        return null;
+    }
+//</editor-fold>
+    
     
     // <editor-fold defaultstate="collapsed" desc="void createCurso()">
     public void createCurso(){
@@ -449,13 +439,13 @@ public class Dei {
         }
         
         while(true){
-            System.out.println("Insira a duracao do novo curso em anos [3-9]:");
+            System.out.println("Insira a duracao do novo curso em anos [1-9]:");
             while(!scan.hasNextInt()){
-                System.out.println("Insercao invalida! Insira um inteiro entre 3 e 9");
+                System.out.println("Insercao invalida! Insira um inteiro entre 1 e 9");
                 scan.nextLine();
             }
             nova_dur = scan.nextInt();
-            if(nova_dur >=3 && nova_dur <= 9){
+            if(nova_dur >=1 && nova_dur <= 9){
                 break;
             }
             
@@ -494,11 +484,6 @@ public class Dei {
         System.out.print(deleted);
         System.out.println(" " + "retirado do departamento");
        
-    } //</editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="ArrayList<Curso> getCursos()">
-    public ArrayList<Curso> getCursos(){
-        return this.cursos;
     } //</editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="int listCursos()">
@@ -605,18 +590,10 @@ public class Dei {
        
     } //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="void setCurso(int index, Curso insere)">
-    public void setCurso(int index, Curso insere){
-        Curso novo;
-        
-        if(index > this.cursos.size()){
-            return;
-        }
-        
-        novo = cursos.set(index, insere);
-        
-    }
-//</editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="ArrayList<Curso> getCursos()">
+    public ArrayList<Curso> getCursos(){
+        return this.cursos;
+    } //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Curso getCurso(int index)">
     public Curso getCurso(int index){
@@ -632,9 +609,33 @@ public class Dei {
     }
 //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="void setCurso(int index, Curso insere)">
+    public void setCurso(int index, Curso insere){
+        Curso novo;
+        
+        if(index > this.cursos.size()){
+            return;
+        }
+        
+        novo = cursos.set(index, insere);
+        
+    }
+//</editor-fold>
+    
+    
+    
     //<editor-fold defaultstate="collapsed" desc="void writePessoasToTXT()">
     public void writePessoasToTXT(){
-        String filename = "Pessoas.txt";
+        String foldername = "_Dados";
+        File pasta = new File(foldername);
+        if(!pasta.exists()){
+            pasta.mkdir();
+        }
+        else if(!pasta.isDirectory()){
+            pasta.mkdir();
+        }
+        
+        String filename = foldername.concat("/" + "_Pessoas.txt");
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(filename));
@@ -672,7 +673,13 @@ public class Dei {
     
     //<editor-fold defaultstate="collapsed" desc="void readPessoasFromTXT()">
     public void readPessoasFromTXT(){
-        String filename = "Pessoas.txt";
+        String foldername = "_Dados";
+        File pasta = new File(foldername);
+        if(!pasta.exists() || !pasta.isDirectory()){
+            System.out.println("A pasta nao " + foldername + " existe");
+        }
+        
+        String filename = foldername.concat("/" + "_Pessoas.txt");
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(filename));
@@ -768,6 +775,94 @@ public class Dei {
         }
         
         System.out.println("Leu " + count+ " pessoas de " + pessoa.size() + " do ficheiro "+ filename);
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="void writeCursosToOBJ()">
+    public void writeCursosToOBJ(){
+        String foldername = "_Dados";
+        File pasta = new File(foldername);
+        if(!pasta.exists()){
+            pasta.mkdir();
+        }
+        else if(!pasta.isDirectory()){
+            pasta.mkdir();
+        }
+        
+        
+        String filename = foldername.concat("/" + "_Cursos.obj");
+        ObjectOutputStream oos = null;
+        
+        try{
+            oos = new ObjectOutputStream(new FileOutputStream(filename));
+        } catch (IOException ex) {
+            System.out.println("Erro a abrir ficheiro de cursos");
+            ex.printStackTrace();
+            return;
+        }
+        
+        try {
+            oos.writeObject(this.cursos);
+        } catch (IOException ex) {
+            System.out.println("Erro a escrever cursos");
+            ex.printStackTrace();
+            return;
+        }
+        
+        try {
+            oos.close();
+        } catch (IOException ex) {
+            System.out.println("Erro a fechar ficheiro de cursos");
+            ex.printStackTrace();
+            return;
+        }
+        
+        System.out.println("Escreveu ArrayList de cursos para o ficheiro " +filename);
+        
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="void readCursosToOBJ()">
+    public void readCursosToOBJ(){
+        String foldername = "_Dados";
+        File pasta = new File(foldername);
+        if(!pasta.exists() || !pasta.isDirectory()){
+            System.out.println("A pasta nao " + foldername + " existe");
+        }
+        
+        String filename = foldername.concat("/" + "_Cursos.obj");
+        ObjectInputStream ois = null;
+        
+        try{
+            ois = new ObjectInputStream(new FileInputStream(filename));
+        } catch (IOException ex) {
+            System.out.println("Erro a abrir ficheiro de cursos");
+            ex.printStackTrace();
+            return;
+        }
+        
+        try {
+            cursos = (ArrayList<Curso>) ois.readObject();
+        } catch (IOException ex) {
+            System.out.println("Erro a ler ficheiro de cursos [IO]");
+            ex.printStackTrace();
+            return;
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Erro a ler ficheiro de cursos [CNF]");
+            ex.printStackTrace();
+            return;
+        } 
+        
+        try {
+            ois.close();
+        } catch (IOException ex) {
+            System.out.println("Erro a fechar ficheiro de cursos");
+            ex.printStackTrace();
+            return;
+        }
+        
+        System.out.println("Leu ArrayList de cursos do ficheiro " +filename);
+        
     }
 //</editor-fold>
 }

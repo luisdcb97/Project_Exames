@@ -1,8 +1,10 @@
 package project;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ExameNormal extends Exame {
+public class ExameNormal extends Exame implements Serializable{
+    private static final long serialVersionUID = 508L;
 
     public ExameNormal(Docente responsavel, Sala local, Date hora, int tempo) {
         super(responsavel, local, hora, tempo);

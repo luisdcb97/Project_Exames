@@ -1,9 +1,11 @@
 package project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-abstract class Exame {
+abstract class Exame implements Serializable{
+    private static final long serialVersionUID = 506L;
 	
     protected ArrayList<Docente> vigilantes = new ArrayList<Docente>();
     protected ArrayList<NaoDocente> naodocentes = new ArrayList<NaoDocente>();

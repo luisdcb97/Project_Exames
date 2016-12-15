@@ -1,6 +1,9 @@
 package project;
 
-public class Docente extends Functionario {
+import java.io.Serializable;
+
+public class Docente extends Functionario implements Serializable{
+    private static final long serialVersionUID = 505L;
 	
     private String area;
 

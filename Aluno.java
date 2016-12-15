@@ -1,7 +1,10 @@
 package project;
 
-public class Aluno extends Pessoa {
-	
+import java.io.Serializable;
+
+public class Aluno extends Pessoa implements Serializable{
+    private static final long serialVersionUID = 501L;
+    
     private int num;
     private int ano;
     private String regime;

@@ -1,8 +1,11 @@
 package project;
 
+import java.io.Serializable;
+
 
 //DONE
-abstract class Pessoa {
+public abstract class Pessoa implements Serializable{
+    private static final long serialVersionUID = 512L;
     private String name;
     private String email;
 	
