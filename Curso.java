@@ -5,6 +5,10 @@
  */
 package project;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -254,5 +258,80 @@ public class Curso implements Serializable{
         return str;
     }
     
-    
+    //<editor-fold defaultstate="collapsed" desc="void writeListaDisciplinasToLIST()">
+    public void writeListaDisciplinasToLIST(){
+        int listados = listDisciplinas();
+        
+        if(listados == 0){
+            return;
+        }
+        
+        String escolha;
+        Scanner scan = new Scanner(System.in);
+        while (true) {
+            System.out.println("Deseja guardar esta lista em ficheiro? [Y/YES | N/NO]");
+            escolha = scan.nextLine();
+            if(!(escolha.equalsIgnoreCase("Y") || escolha.equalsIgnoreCase("N") 
+                    || escolha.equalsIgnoreCase("YES") || escolha.equalsIgnoreCase("NO"))){
+            
+                System.out.println("Insercao invalida");
+            }
+            else if(escolha.equalsIgnoreCase("Y") || escolha.equalsIgnoreCase("YES")){
+                System.out.println("Writing File...");
+                break;
+            }
+            else{
+                System.out.println("Returning to menu...");
+                return;
+            }
+        }
+        
+        String foldername = "_Dados";
+        File pasta = new File(foldername);
+        if(!pasta.exists()){
+            pasta.mkdir();
+        }
+        else if(!pasta.isDirectory()){
+            pasta.mkdir();
+        }
+        
+        
+        String filename = "ListaDisciplinas_" + this.getNome();
+        
+        
+        filename = foldername.concat("/" + filename +".list");
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(filename));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return;
+        }
+        
+        String escreve;
+        int count = 0;
+        
+        for (int i = 0; i < disciplinas.size(); i++) {
+            Disciplina get = disciplinas.get(i);
+            escreve = get.toString();
+            try {
+                bw.write(escreve, 0, escreve.length());
+                bw.write('\n');
+                count++;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+          
+        }
+        
+        try {
+            bw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return;
+        }
+        
+        System.out.println("Escreveu " + count+ " disciplinas de " + disciplinas.size() + " para o ficheiro "+ filename);
+    }
+//</editor-fold>
 }
