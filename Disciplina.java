@@ -18,33 +18,39 @@ public class Disciplina implements Serializable{
         this.docenteresponsavel = responsavel;
         this.docentes.add(responsavel);
     }
+    
 
-    public void listExams() {
-        ArrayList<ExameEspecial> especial = new ArrayList<ExameEspecial>();
-        ArrayList<ExameNormal> normal = new ArrayList<ExameNormal>();
-        ArrayList<ExameRecurso> recurso = new ArrayList<ExameRecurso>();
-        for(int i = 0;i<exames.size();i++) {
-            if(exames.get(i).getClass() ==ExameEspecial.class) {
-                especial.add((ExameEspecial)exames.get(i));
+    //<editor-fold defaultstate="collapsed" desc="int listExams(String classe)">
+    public int listExams(String classe) {
+        switch (classe) {
+            case "normal":
+                classe = ExameNormal.class.toString();
+                break;
+            case "recurso":
+                classe = ExameRecurso.class.toString();
+                break;
+            case "especial":
+                classe = ExameEspecial.class.toString();
+                break;
+            default:
+                classe = Exame.class.toString();
+        }
+        
+        int count = 0;
+        for(int i = 0; i < exames.size(); i++) {
+            Exame get = exames.get(i);
+            if(!Exame.class.toString().equals(classe)) {
+                // Print specific exams
+                if(!get.getClass().toString().equals(classe)){
+                    continue;
+                }
             }
-            if(exames.get(i).getClass() == ExameNormal.class){
-                normal.add((ExameNormal)exames.get(i));
-            }
-            if(exames.get(i).getClass() == ExameRecurso.class){
-                recurso.add((ExameRecurso)exames.get(i));
-            }
+            System.out.println(get);
+            count++;
         }
-        System.out.println("The normal exams of: "+getName());
-        for(int i = 0;i<normal.size();i++) {
-            System.out.println(normal.get(i).getData());
-        }
-        for(int i = 0;i<recurso.size();i++) {
-            System.out.println(recurso.get(i).getData());
-        }
-        for(int i = 0;i<especial.size();i++) {
-            System.out.println(especial.get(i).getData());
-        }
+        return count;
     }
+//</editor-fold>
 
     public String getName() {
         return name;

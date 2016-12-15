@@ -100,7 +100,7 @@ public class Main {
                 departamento.removeCurso();
                 break;
             case 3:
-                departamento.listCursos();
+                departamento.writeListaCursosToLIST();
                 break;
             case 4:
                 int escolha = departamento.escolheCurso();
@@ -167,19 +167,19 @@ public class Main {
                 departamento.createPessoa("nao docente");
                 break;
             case 4:
-                departamento.listPessoa("aluno");
+                departamento.writeListaPessoasToLIST("aluno");
                 break;
             case 5:
-                departamento.listPessoa("docente");
+                departamento.writeListaPessoasToLIST("docente");
                 break;
             case 6:
-                departamento.listPessoa("nao docente");
+                departamento.writeListaPessoasToLIST("nao docente");
                 break;
             case 7:
-                departamento.listPessoa("funcionario");
+                departamento.writeListaPessoasToLIST("funcionario");
                 break;
             case 8:
-                departamento.listPessoa("todos");
+                departamento.writeListaPessoasToLIST("todos");
                 break;
             case 0:
                 System.out.println("Returning to Main Menu...");
@@ -225,7 +225,7 @@ public class Main {
                 curso.removeDisciplina();
                 break;
             case 3:
-                curso.listDisciplinas();
+                curso.writeListaDisciplinasToLIST();
                 break;
             case 4:
                 curso.alteraDados("duracao");

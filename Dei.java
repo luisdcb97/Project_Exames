@@ -19,16 +19,12 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Luis David
  */
 public class Dei {
-    private static final long serialVersionUID = 503L;
-    
     private ArrayList<Curso> cursos;
     private ArrayList<Pessoa> pessoa;
     private ArrayList<Sala> salas;
@@ -39,31 +35,6 @@ public class Dei {
         this.salas = new ArrayList<>();
     }
     
-    public void listAllFunctionarios() {
-        ArrayList<Functionario> lista = new ArrayList<>();
-        
-        for(int i = 0;i<pessoa.size();i++) {
-            Pessoa pes = pessoa.get(i);
-            if(pes.getClass() != Aluno.class) {
-                Functionario func = (Functionario) pes;
-                lista.add(func);
-            }
-        }
-        
-        if(lista.isEmpty()){
-            System.out.println("\nNo funcionarios to list\n");
-        }
-        else{
-            System.out.println("\nListing all funcionarios");
-            for (int i = 0; i < lista.size(); i++) {
-                System.out.println(lista.get(i));
-            }
-            System.out.println("\n End of list\n");
-            
-        }
-        
-        
-    }
     
     void listExamsofFunctionario(){
 
@@ -364,18 +335,24 @@ public class Dei {
         System.out.println("\n-------------------------------\n");
         for (int i = 0; i < pessoa.size(); i++) {
             Pessoa get = pessoa.get(i);
-            if(classe.equals(Pessoa.class.toString())){
-                System.out.println(get);
-                count++;
+            if(!classe.equals(Pessoa.class.toString())){
+                // if classe is not Pessoa
+                if(!classe.equals(Functionario.class.toString())){
+                    // if classe is not Functionario
+                    if(!get.getClass().toString().equals(classe)){
+                        // if classe is not equal to Pessoa's class, skip write
+                        continue;
+                    }
+                }
+                else if(get.getClass() == Aluno.class){
+                    // if classe is Functionario and Pessoa is Aluno, skip l
+                    continue;
+                }
             }
-            else if(classe.equals(Functionario.class.toString()) && get.getClass() != Aluno.class){
-                System.out.println(get);
-                count++;
-            }
-            else if(get.getClass().toString().equals(classe)){
-                System.out.println(get);
-                count++;
-            }
+            
+            System.out.println(get);
+            count++;
+            
             
         }
         System.out.println("\n-------------------------------\n");
@@ -564,6 +541,196 @@ public class Dei {
 //</editor-fold>
     
     
+    //<editor-fold defaultstate="collapsed" desc="void writeListaPessoasToLIST( String classe)">
+    public void writeListaPessoasToLIST( String classe){
+        int listados = listPessoa(classe);
+        
+        if(listados == 0){
+            return;
+        }
+        
+        String escolha;
+        Scanner scan = new Scanner(System.in);
+        while (true) {
+            System.out.println("Deseja guardar esta lista em ficheiro? [Y/YES | N/NO]");
+            escolha = scan.nextLine();
+            if(!(escolha.equalsIgnoreCase("Y") || escolha.equalsIgnoreCase("N") 
+                    || escolha.equalsIgnoreCase("YES") || escolha.equalsIgnoreCase("NO"))){
+            
+                System.out.println("Insercao invalida");
+            }
+            else if(escolha.equalsIgnoreCase("Y") || escolha.equalsIgnoreCase("YES")){
+                System.out.println("Writing File...");
+                break;
+            }
+            else{
+                System.out.println("Returning to menu...");
+                return;
+            }
+        }
+        
+        String foldername = "_Dados";
+        File pasta = new File(foldername);
+        if(!pasta.exists()){
+            pasta.mkdir();
+        }
+        else if(!pasta.isDirectory()){
+            pasta.mkdir();
+        }
+        
+        
+        String filename;
+        switch (classe) {
+            case "aluno":
+                classe = Aluno.class.toString();
+                filename = "ListaAluno";
+                break;
+            case "docente":
+                classe = Docente.class.toString();
+                filename = "ListaDocente";
+                break;
+            case "nao docente":
+                classe = NaoDocente.class.toString();
+                filename = "ListaNaoDocente";
+                break;
+            case "funcionario":
+                classe = Functionario.class.toString();
+                filename = "ListaFuncionarios";
+                break;
+            default:
+                classe = Pessoa.class.toString();
+                filename = "ListaPessoas";
+                
+        }
+        
+        
+        filename = foldername.concat("/" + filename +".list");
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(filename));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return;
+        }
+        
+        String escreve;
+        int count = 0;
+        
+        for (int i = 0; i < pessoa.size(); i++) {
+            Pessoa get = pessoa.get(i);
+            if(!classe.equals(Pessoa.class.toString())){
+                // if classe is not Pessoa
+                if(!classe.equals(Functionario.class.toString())){
+                    // if classe is not Functionario
+                    if(!get.getClass().toString().equals(classe)){
+                        // if classe is not equal to Pessoa's class, skip write
+                        continue;
+                    }
+                }
+                else if(get.getClass() == Aluno.class){
+                    // if classe is Functionario and Pessoa is Aluno, skip write
+                    continue;
+                }
+            }
+            
+            escreve = get.toText();
+            try {
+                bw.write(escreve, 0, escreve.length());
+                bw.write('\n');
+                count++;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+          
+        }
+        
+        try {
+            bw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return;
+        }
+        
+        System.out.println("Escreveu " + count+ " pessoas de " + pessoa.size() + " para o ficheiro "+ filename);
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="void writeListaCursosToLIST()">
+    public void writeListaCursosToLIST(){
+        int listados = listCursos();
+        
+        if(listados == 0){
+            return;
+        }
+        
+        String escolha;
+        Scanner scan = new Scanner(System.in);
+        while (true) {
+            System.out.println("Deseja guardar esta lista em ficheiro? [Y/YES | N/NO]");
+            escolha = scan.nextLine();
+            if(!(escolha.equalsIgnoreCase("Y") || escolha.equalsIgnoreCase("N") 
+                    || escolha.equalsIgnoreCase("YES") || escolha.equalsIgnoreCase("NO"))){
+            
+                System.out.println("Insercao invalida");
+            }
+            else if(escolha.equalsIgnoreCase("Y") || escolha.equalsIgnoreCase("YES")){
+                System.out.println("Writing File...");
+                break;
+            }
+            else{
+                System.out.println("Returning to menu...");
+                return;
+            }
+        }
+        
+        String foldername = "_Dados";
+        File pasta = new File(foldername);
+        if(!pasta.exists()){
+            pasta.mkdir();
+        }
+        else if(!pasta.isDirectory()){
+            pasta.mkdir();
+        }
+        
+        
+        String filename = "ListaCursos";
+        
+        
+        filename = foldername.concat("/" + filename +".list");
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(filename));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return;
+        }
+        
+        String escreve;
+        int count = 0;
+        
+        for (int i = 0; i < cursos.size(); i++) {
+            Curso get = cursos.get(i);
+            escreve = get.toString();
+            try {
+                bw.write(escreve, 0, escreve.length());
+                bw.write('\n');
+                count++;
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+          
+        }
+        
+        try {
+            bw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return;
+        }
+        
+        System.out.println("Escreveu " + count+ " cursos de " + cursos.size() + " para o ficheiro "+ filename);
+    }
+//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void writePessoasToTXT()">
     public void writePessoasToTXT(){
