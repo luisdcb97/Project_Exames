@@ -16,28 +16,21 @@ import java.util.Scanner;
 
 
 public class Main {
-   
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
         Dei departamento = new Dei();
-        Scanner scan = new Scanner(System.in);
         
-        /*departamento.createAluno("luis", "luis@student.uc.pt", 2015237627);
-        departamento.createAluno("artur", "artur@student.uc.pt", 2014237627);
-        departamento.createDocente("vasco", "vasco@student.uc.pt", 123, "Catedratico" , "Engenharia de Software");
-        departamento.createDocente("granjal", "granjal@student.uc.pt", 1, "Auxiliar" , "Sistemas de Informacao");
-        departamento.createNaoDocente("lara", "lara@student.uc.pt", 98765432, "Tecnico Superior" , "Apoio Tecnico");
-        */
         departamento.readPessoasFromTXT();
+        departamento.readCursosToOBJ();
         while(true){
             menu_main(departamento);
         }
     }  
     
-    @SuppressWarnings("empty-statement")
+    
     private static void menu_main(Dei departamento){
         int choice;
         Scanner scan = new Scanner(System.in);
@@ -45,15 +38,6 @@ public class Main {
         System.out.println("=================== MENU PRINCIPAL =======================\n");
         System.out.println("[1] Gerir Cursos");
         System.out.println("[2] Gerir Pessoas");
-        System.out.println("[3] Gerir Disciplinas");
-        System.out.println("[4] Inscrever alunos num exame");
-        System.out.println("[5] Lancar notas");
-        System.out.println("[6] Listar Exames");
-        System.out.println("[7] Listar alunos inscritos");
-        System.out.println("[8] Listar exames do aluno");
-        System.out.println("[9] Listar funcionarios associados");
-        System.out.println("[10] Listar exames do funcionario");
-        System.out.println("[11] Listar notas do exame");
         System.out.println("[0] Sair");
         System.out.println("\nInsira a sua escolha:");
 
@@ -72,35 +56,10 @@ public class Main {
             case 2:
                 while(menu_pessoas(departamento) != 0);
                 break;
-            case 3:
-                break;
-            case 4:
-                System.out.println(choice);
-                break;
-            case 5:
-                System.out.println(choice);
-                break;
-            case 6:
-                System.out.println(choice);
-                break;
-            case 7:
-                System.out.println(choice);
-                break;
-            case 8:
-                System.out.println(choice);
-                break;
-            case 9:
-                System.out.println(choice);
-                break;
-            case 10:
-                System.out.println(choice);
-                break;
-            case 11:
-                System.out.println(choice);
-                break;
             case 0:
                 System.out.println("Writing to Files...");
                 departamento.writePessoasToTXT();
+                departamento.writeCursosToOBJ();
                 System.out.println("Exiting...");
                 System.exit(0);
                 break;
@@ -153,13 +112,13 @@ public class Main {
                     break;
                 }
                 else if (escolha == 0) {
-                    System.out.println("A cancelar remocao de curso");
+                    System.out.println("A cancelar...");
                     break;
                 }
                 
                 Curso altera = departamento.getCurso(escolha-1);
                 
-                while(menu_disciplinas(altera) != 0);
+                while(menu_disciplinas(departamento, altera) != 0);
                     
                 departamento.setCurso(escolha-1, altera);
                 break;
@@ -242,19 +201,17 @@ public class Main {
         return choice;
     }
     
-    private static int menu_disciplinas(Curso curso){
+    private static int menu_disciplinas(Dei departamento, Curso curso){
         int choice;
         Scanner scan = new Scanner(System.in);
         
         System.out.println("=================== MENU DISCIPLINAS DE " +curso.getNome().toUpperCase()+ " =======================\n");
-        System.out.println("[1] Criar Disciplina");
-        System.out.println("[2] Alterar Responsavel");
-        System.out.println("[3] Adicionar Docente");
-        System.out.println("[4] Remover Docente");
-        System.out.println("[5] Adicionar Aluno");
-        System.out.println("[6] Remover Aluno");
-        System.out.println("[7] Marcar Exame");
-        System.out.println("[8] Remover Exame");
+        System.out.println("[1] Adicionar Disciplina");
+        System.out.println("[2] Remover Disciplina");
+        System.out.println("[3] Listar Disciplinas");
+        System.out.println("[4] Gerir Exames");
+        System.out.println("[5] Adicionar Docente");
+        System.out.println("[6] Adicionar Aluno");
         System.out.println("[0] Voltar");
         System.out.println("\nInsira a sua escolha:");
 
@@ -268,23 +225,16 @@ public class Main {
 
         switch (choice) {
             case 1:
+                curso.createDisciplina(departamento);
                 break;
             case 2:
+                curso.removeDisciplina();
                 break;
             case 3:
+                curso.listDisciplinas();
                 break;
             case 4:
                 System.out.println(choice);
-                break;
-            case 5:
-                System.out.println(choice);
-                break;
-            case 6:
-                System.out.println(choice);
-                break;
-            case 7:
-                break;
-            case 8:
                 break;
             case 0:
                 System.out.println("Returning to Main Menu...");

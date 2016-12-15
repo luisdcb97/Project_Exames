@@ -1,6 +1,9 @@
 package project;
 
-abstract class Functionario extends Pessoa {
+import java.io.Serializable;
+
+abstract class Functionario extends Pessoa implements Serializable{
+    private static final long serialVersionUID = 510L;
 	
     private int mecano;
     private String categoria;

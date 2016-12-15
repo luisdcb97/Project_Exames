@@ -1,9 +1,11 @@
 package project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Disciplina {
-	
+public class Disciplina implements Serializable{
+    private static final long serialVersionUID = 504L;
+    
     private String name;
     private Docente docenteresponsavel;
     ArrayList<Docente> docentes = new ArrayList<Docente>();
@@ -59,4 +61,18 @@ public class Disciplina {
     public void setDocenteresponsavel(Docente docenteresponsavel) {
         this.docenteresponsavel = docenteresponsavel;
     }
+
+    @Override
+    public String toString() {
+        String str = "";
+        str += this.name + "\t";
+        str += this.docenteresponsavel.getName() + "\t";
+        str += this.docenteresponsavel.getEmail()+ "\t";
+        str += this.docentes.size() + "\t";
+        str += this.alunos.size() + "\t";
+        str += this.exames.size() + "\t";
+        return str;
+    }
+    
+    
 }

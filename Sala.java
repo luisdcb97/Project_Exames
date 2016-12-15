@@ -16,6 +16,7 @@ import java.util.Scanner;
  * @version 0.2
  */
 public class Sala implements Serializable{
+    private static final long serialVersionUID = 513L;
     private String id;
     private ArrayList<Date> timeslots;
     private ArrayList<Integer> duration;
