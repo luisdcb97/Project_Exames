@@ -19,7 +19,7 @@ import java.util.Scanner;
  */
 public class Curso implements Serializable{
     private static final long serialVersionUID = 502L;
-    
+
     private String nome;
     private int duracao;
     private String grau;
@@ -186,6 +186,21 @@ public class Curso implements Serializable{
        
     } //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="int listExamsOfPessoa(Pessoa person)">
+    public int listExamsOfPessoa(Pessoa person){
+        String prefix = "[" + this.getNome()+ "] ";
+        int count = 0;
+        
+        for (int i = 0; i < disciplinas.size(); i++) {
+            Disciplina obtida = disciplinas.get(i);
+            
+            count += obtida.listExamsOfPessoa(person, prefix);
+            
+        }
+        
+        return count;
+    }
+//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Duracao get/set">
     public int getDuracao() {

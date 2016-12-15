@@ -145,6 +145,9 @@ public class Main {
         System.out.println("[6] Listar Nao-Docentes");
         System.out.println("[7] Listar Funcionarios");
         System.out.println("[8] Listar Pessoas");
+        System.out.println("[8] Listar Exames do Aluno");
+        System.out.println("[8] Listar Exames do Docente");
+        System.out.println("[8] Listar Exames do Nao-Docente");
         System.out.println("[0] Voltar");
         System.out.println("\nInsira a sua escolha:");
 

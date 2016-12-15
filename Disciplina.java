@@ -52,6 +52,48 @@ public class Disciplina implements Serializable{
     }
 //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="int listExamsOfPessoa(Pessoa person)">
+    public int listExamsOfPessoa(Pessoa person, String prefix){
+        prefix = prefix.concat("[" + this.getName() + "] ");
+        String print;
+        int count = 0;
+        
+        for (int i = 0; i < exames.size(); i++) {
+            Exame obtido = exames.get(i);
+            print = "";
+            
+            if(person.getClass() == Aluno.class){
+                Aluno al = (Aluno) person;
+                if (obtido.isAssociatedAluno(al)){
+                    print = prefix + obtido.toString();
+                    if(obtido.getNotas().size() > 0){
+                        print += obtido.getNotas().get(i);
+                    }
+                    count++;
+                }
+            }
+            else if(person.getClass() == Docente.class){
+                Docente dc = (Docente) person;
+                if(obtido.isAssociatedDocente(dc)){
+                    print = prefix + obtido.toString();
+                    count++;
+                }
+            }
+            else if(person.getClass() == NaoDocente.class){
+                NaoDocente ndc = (NaoDocente) person;
+                if(obtido.isAssociatedNaoDocente(ndc)){
+                    print = prefix + obtido.toString();
+                    count++;
+                }
+            }
+            
+            System.out.println(print);
+            
+        }
+        return count;
+    }
+//</editor-fold>
+    
     public String getName() {
         return name;
     }
