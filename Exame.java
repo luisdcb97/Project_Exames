@@ -70,6 +70,10 @@ abstract class Exame implements Serializable{
     public void setData(Date data) {
         this.data = data;
     }
+    
+    public ArrayList<Double> getNotas() {
+        return this.notas;
+    }
 
     protected boolean checkDone(){
         if( this.notas.size() > 0){
@@ -78,5 +82,51 @@ abstract class Exame implements Serializable{
         }
         return false;
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="boolean isAssociatedAluno(Aluno person)">
+    public boolean isAssociatedAluno(Aluno person){
         
+        for (int i = 0; i < alunos.size(); i++) {
+            Aluno get = alunos.get(i);
+            if( get.getNum() == person.getNum()){
+                return true;
+            }
+        }
+        
+        
+        return false;
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="boolean isAssociatedDocente(Docente person)">
+    public boolean isAssociatedDocente(Docente person){
+        if(person.getMecano() == getDocenteresponsavel().getMecano()){
+            return true;
+        }
+        
+        for (int i = 0; i < vigilantes.size(); i++) {
+            Docente get = vigilantes.get(i);
+            if(person.getMecano() == get.getMecano()){
+                return true;
+            }
+
+        }
+        
+        return false;
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="boolean isAssociatedNaoDocente(NaoDocente person)">
+    public boolean isAssociatedNaoDocente(NaoDocente person){
+        for (int i = 0; i < naodocentes.size(); i++) {
+            NaoDocente get = naodocentes.get(i);
+            if(person.getMecano() == get.getMecano()){
+                return true;
+            }
+
+        }
+        
+        return false;
+    }
+//</editor-fold>
 }

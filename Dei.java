@@ -540,6 +540,50 @@ public class Dei {
     }
 //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="int listExamsOfPessoa(Pessoa person)">
+    public int listExamsOfPessoa(Pessoa person){
+        int count = 0;
+        
+        for (int i = 0; i < cursos.size(); i++) {
+            Curso obtido = cursos.get(i);
+            
+            count += obtido.listExamsOfPessoa(person);
+            
+        }
+        
+        return count;
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Pessoa escolherPessoa(String classe)">
+    public Pessoa escolherPessoa(String classe){
+        Scanner scan = new Scanner(System.in);
+        int count = listPessoa(classe);
+        
+        if(count == 0){
+            System.out.println("Sem pessoas para escolher");
+            return null;
+        }
+        
+        
+        int escolha;
+        while(true){
+            System.out.println("Insira um inteiro entre 0 e " + count);
+            while(!scan.hasNextInt()){
+                System.out.println("Insercao invalida! Insira um inteiro entre 0 e " + count);
+                scan.nextLine();
+            }
+            escolha = scan.nextInt();
+            if(escolha >= 0 && escolha <= count){
+                break;
+            }
+        }
+        
+        return pessoa.get(escolha-1);
+        
+    }
+//</editor-fold>
+    
     
     //<editor-fold defaultstate="collapsed" desc="void writeListaPessoasToLIST( String classe)">
     public void writeListaPessoasToLIST( String classe){
