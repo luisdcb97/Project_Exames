@@ -41,7 +41,7 @@ public class Curso implements Serializable{
     }
     
     //<editor-fold defaultstate="collapsed" desc="void createDisciplina(Dei departamento)">
-    public void createDisciplina(Dei departamento){
+    public void createDisciplina(DEI departamento){
         Scanner scan = new Scanner(System.in);
         String novo_nome;
         
@@ -348,5 +348,50 @@ public class Curso implements Serializable{
         
         System.out.println("Escreveu " + count+ " disciplinas de " + disciplinas.size() + " para o ficheiro "+ filename);
     }
+//</editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="ArrayList<Curso> getDisciplinas()">
+public ArrayList<Disciplina> getDisciplinas(){
+    return this.disciplinas;
+} //</editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="Curso getDisciplinas(int index)">
+public Disciplina getDisciplina(int index){
+    Disciplina novo;
+    
+    if(index > this.disciplinas.size()){
+        return null;
+    }
+    
+    novo = disciplinas.get(index);
+    
+    return novo;
+}
+//</editor-fold>
+
+//<editor-fold defaultstate="collapsed" desc="int escolheDisciplina()">
+public int escolheDisciplina(){
+    Scanner scan = new Scanner(System.in);
+    int escolha;
+    int list_size = listDisciplinas();
+    
+    if(list_size == 0){
+        System.out.println("Nao existem disciplinas");
+        return -1;
+    }
+    
+    while(true){
+        System.out.println("Insira um inteiro entre 0 e " + list_size);
+        while(!scan.hasNextInt()){
+            System.out.println("Insercao invalida! Insira um inteiro entre 0 e " + list_size);
+            scan.nextLine();
+        }
+        escolha = scan.nextInt();
+        if(escolha >= 0 && escolha <= list_size){
+            break;
+        }
+    }
+    return escolha;
+}
 //</editor-fold>
 }

@@ -21,7 +21,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Dei departamento = new Dei();
+        DEI departamento = new DEI();
         
         departamento.readPessoasFromTXT();
         departamento.readCursosToOBJ();
@@ -31,7 +31,7 @@ public class Main {
     }  
     
     
-    private static void menu_main(Dei departamento){
+    private static void menu_main(DEI departamento){
         int choice;
         Scanner scan = new Scanner(System.in);
         
@@ -72,7 +72,7 @@ public class Main {
         
     }
     
-    private static int menu_curso(Dei departamento){
+    private static int menu_curso(DEI departamento){
         int choice;
         Scanner scan = new Scanner(System.in);
         
@@ -132,7 +132,7 @@ public class Main {
         return choice;
     }
     
-    private static int menu_pessoas(Dei departamento){
+    private static int menu_pessoas(DEI departamento){
         int choice;
         Scanner scan = new Scanner(System.in);
         
@@ -196,7 +196,7 @@ public class Main {
         return choice;
     }
     
-    private static int menu_disciplinas(Dei departamento, Curso curso, int index){
+    private static int menu_disciplinas(DEI departamento, Curso curso, int index){
         int choice;
         Scanner scan = new Scanner(System.in);
         
@@ -237,7 +237,22 @@ public class Main {
                 curso.alteraDados("grau");
                 break;
             case 6:
-                System.out.println(choice);
+            	int escolha = curso.escolheDisciplina();
+
+                if(escolha == -1){
+                    System.out.println("Nao existem cursos");
+                    break;
+                }
+                else if (escolha == 0) {
+                    System.out.println("A cancelar...");
+                    break;
+                }
+                
+                Disciplina altera = curso.getDisciplina(escolha-1);
+                
+                while(menu_exames(departamento, altera) != 0);
+                    
+                
                 break;
             case 0:
                 System.out.println("Returning to Main Menu...");
@@ -252,4 +267,45 @@ public class Main {
         return choice;
     }
     
+    private static int menu_exames(DEI departamento, Disciplina disciplina) {
+    	int choice;
+        Scanner scan = new Scanner(System.in);
+        
+        System.out.println("=================== MENU DE " +disciplina.toString().toUpperCase()+ " =======================\n");
+        System.out.println("[1] Adicionar exame");
+        System.out.println("[2] Remover exame");
+        System.out.println("[3] Listar exames");
+        System.out.println("[4] Alterar exame");
+        System.out.println("\nInsira a sua escolha:");
+
+        while(!scan.hasNextInt()){
+            System.out.println("Insercao invalida!\nInsira um inteiro:");
+            scan.nextLine();
+        }
+        choice = scan.nextInt();
+
+        scan.nextLine(); // clears input
+    	
+        switch (choice) {
+        case 1:
+            System.out.println("Adicionar exame");
+            break;
+        case 2:
+        	System.out.println("Adicionar exame");
+            break;
+        case 3:
+        	System.out.println("Adicionar exame");
+            break;
+        case 4:
+        	System.out.println("Adicionar exame");
+            break;
+        case 0:
+            System.out.println("Returning to Main Menu...");
+            return 0;
+        default:
+            System.out.println("Escolha Invalida!");
+            break;
+    } 
+        return choice;
+    }
 }
