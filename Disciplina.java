@@ -66,11 +66,12 @@ public class Disciplina implements Serializable{
                 classe = Exame.class.toString();
         }
         //Checking if any exams exist
-        if(exames.size() ==0) {
+        if(exames.isEmpty()) {
         	System.out.println("Nao existem exames");
         	return 0;
         }
         
+        System.out.println("\n------------------- A listar exames da epoca " +classe+" -----------------\n");
         int count = 0;
         for(int i = 0; i < exames.size(); i++) {
             Exame get = exames.get(i);
@@ -83,6 +84,7 @@ public class Disciplina implements Serializable{
             System.out.println(get);
             count++;
         }
+        System.out.println("\n---------------------------------------\n");
         return count;
     }
 //</editor-fold>
@@ -184,7 +186,8 @@ public class Disciplina implements Serializable{
     	Scanner scan = new Scanner(System.in);
     	int tipo,dia,mes,ano,hora,minuto,tempo,docente,sala;
     	tipo = selectExame();
-    	
+        
+        //<editor-fold defaultstate="collapsed" desc="choose year">
     	while(true) {
     		System.out.println("Insira o ano do exame [YYYY]");
     		
@@ -201,6 +204,9 @@ public class Disciplina implements Serializable{
     			break;
     		}
     	}
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="choose month">
     	while(true) {
     		System.out.println("Insira o mes do exame [1-12]");
     		
@@ -217,6 +223,9 @@ public class Disciplina implements Serializable{
     			break;
     		}
     	}
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="choose day">
     	while(true) {
     		System.out.println("Insira o dia do exame");
     		int valid =0;
@@ -316,11 +325,13 @@ public class Disciplina implements Serializable{
     			System.out.println("Insercao invalida");
     			break;
     		}
-    	if(valid == 1) {
-    		break;
-    	}
-    }
+            if(valid == 1) {
+                    break;
+            }
+        }
+        //</editor-fold>
     	
+        //<editor-fold defaultstate="collapsed" desc="choose hour">
     	while(true) {
     		System.out.println("Insira o hora do exame [0-24]");
     		
@@ -335,6 +346,9 @@ public class Disciplina implements Serializable{
     			break;
     		}
     	}
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="choose minute">
     	while(true) {
     		System.out.println("Insira os minutos  do exame [" + hora+":mm] (0-59)");
     		
@@ -349,6 +363,9 @@ public class Disciplina implements Serializable{
     			break;
     		}
     	}
+        //</editor-fold>
+                
+        //<editor-fold defaultstate="collapsed" desc="choose duration">
     	while(true) {
     		System.out.println("Insira o duracao do exame (minutos)");
     		while(!scan.hasNextInt()){
@@ -362,7 +379,9 @@ public class Disciplina implements Serializable{
     			break;
     		}
     	}
-    	
+        //</editor-fold>
+        
+    	//<editor-fold defaultstate="collapsed" desc="create date">
     	int data[];
         
         data = checkArguments(dia, mes, ano, hora, minuto);
@@ -383,36 +402,37 @@ public class Disciplina implements Serializable{
             ex.printStackTrace();
             System.out.println("Error parsing string into date");
         }
-    		
-    		int count = departamento.listSalas();
-    		if(count == 0) {
-    			System.out.println("Returning to previous menu");
-    			return;
-    		}
-    		System.out.println("Escolha uma sala");
-    		while(true){
-                System.out.println("Insira o numero do sala[0-" +(count)+"]:");
-                while (!scan.hasNextInt()) {
-                    System.out.println("Insercao invalida");
-                    scan.nextLine();
-                }
-                sala = scan.nextInt();
-                if(sala>=0 && sala <= count) {
-                	if(departamento.getSala(sala-1).reserveSala(temp, tempo)){
-                		break;
-                	} else {
-                		System.out.println("Sala is already occupied at that time");
-                	}
-                } else {
-                	System.out.println("Insercao invalida");
-                }
+    	//</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="choose sala">
+        int count = departamento.listSalas();
+        if(count == 0) {
+                System.out.println("Returning to previous menu");
+                return;
+        }
+        System.out.println("Escolha uma sala");
+        
+        while(true){
+            System.out.println("Insira o numero do sala[0-" +(count)+"]:");
+            while (!scan.hasNextInt()) {
+                System.out.println("Insercao invalida");
+                scan.nextLine();
             }
-    		//Check if valid
-    		
-    		//if occupied, repeat process
-    		
-    		//else
             
+            sala = scan.nextInt();
+            if(sala>=0 && sala <= count) {
+                    if(departamento.getSala(sala-1).reserveSala(temp, tempo)){
+                            break;
+                    } else {
+                            System.out.println("Sala is already occupied at that time");
+                    }
+            } else {
+                    System.out.println("Insercao invalida");
+            }
+        }
+        //</editor-fold>
+        
+        //<editor-fold defaultstate="collapsed" desc="choose responsavel">
         count = departamento.listPessoa("docente");
             
         if(count == 0){
@@ -421,7 +441,7 @@ public class Disciplina implements Serializable{
             return;
         } 
         while(true){
-            System.out.println("Insira o Docente que deseja ser o responsavel da disciplina[0-" +(count-1)+"]:");
+            System.out.println("Insira o Docente que deseja ser o responsavel da disciplina[0-" +count+"]:");
             while (!scan.hasNextInt()) {
                 System.out.println("Insercao invalida");
                 scan.nextLine();
@@ -433,6 +453,7 @@ public class Disciplina implements Serializable{
             }
             System.out.println("Insercao invalida!!!!!!");
         }
+        //</editor-fold>
         
         switch(tipo) {
         	case 1:

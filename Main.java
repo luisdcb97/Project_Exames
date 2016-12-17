@@ -147,9 +147,9 @@ public class Main {
         System.out.println("[6] Listar Nao-Docentes");
         System.out.println("[7] Listar Funcionarios");
         System.out.println("[8] Listar Pessoas");
-        System.out.println("[8] Listar Exames do Aluno");
-        System.out.println("[8] Listar Exames do Docente");
-        System.out.println("[8] Listar Exames do Nao-Docente");
+        System.out.println("[9] Listar Exames do Aluno");
+        System.out.println("[10] Listar Exames do Docente");
+        System.out.println("[11] Listar Exames do Nao-Docente");
         System.out.println("[0] Voltar");
         System.out.println("\nInsira a sua escolha:");
 
@@ -184,6 +184,15 @@ public class Main {
                 departamento.writeListaPessoasToLIST("funcionario");
                 break;
             case 8:
+                departamento.writeListaPessoasToLIST("todos");
+                break;
+            case 9:
+                
+                break;
+            case 10:
+                departamento.writeListaPessoasToLIST("todos");
+                break;
+            case 11:
                 departamento.writeListaPessoasToLIST("todos");
                 break;
             case 0:
@@ -274,7 +283,7 @@ public class Main {
     	int choice;
         Scanner scan = new Scanner(System.in);
         
-        System.out.println("=================== MENU DE " +disciplina.toString().toUpperCase()+ " =======================\n");
+        System.out.println("=================== MENU DE " +disciplina.getName().toUpperCase()+ " =======================\n");
         System.out.println("[1] Adicionar exame");
         System.out.println("[2] Remover exame");
         System.out.println("[3] Listar exames");
@@ -304,11 +313,11 @@ public class Main {
         	disciplina.removeExame();
             break;
         case 3:
-        	//Checks if any exams exist
-        	if(disciplina.listExams("normal")!= 0) {
-        	disciplina.listExams("Especial");
-        	disciplina.listExams("recurso");
-        	}
+            //Checks if any exams exist
+            disciplina.listExams("normal");
+            disciplina.listExams("especial");
+            disciplina.listExams("recurso");
+        	
             break;
         case 4:
         	System.out.println("Adicionar vigilantes");
