@@ -2,7 +2,10 @@ package project;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * @author Kwinten Jacobs
+ * @author Luis David
+ */
 public class ExameEspecial extends Exame implements Serializable{
     private static final long serialVersionUID = 507L;
 
@@ -24,6 +27,11 @@ public class ExameEspecial extends Exame implements Serializable{
         }
     }
     
+    /**
+     * Checks whether the given Aluno is allowed to participate in an ExameEspecial
+     * @param student Aluno
+     * @return true if the student is allowed, false if otherwise
+     */
     private boolean allowedEpocaEspecial(Aluno student) {
         switch(student.getRegime().toUpperCase()){
             case "TRABALHADOR":

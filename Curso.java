@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ * @author Kwinten Jacobs
  * @author Luis David
  */
 public class Curso implements Serializable{
@@ -41,6 +41,10 @@ public class Curso implements Serializable{
     }
     
     //<editor-fold defaultstate="collapsed" desc="void createDisciplina(Dei departamento)">
+    /**
+     * Requests a series of user inputs to create a new instance of type Disciplina
+     * @param departamento The instance of DEI in which the Disciplina will be situated
+     */
     public void createDisciplina(DEI departamento){
         Scanner scan = new Scanner(System.in);
         String novo_nome;
@@ -51,7 +55,7 @@ public class Curso implements Serializable{
         int count = departamento.listPessoa("docente");
         
         if(count == 0){
-            System.out.println("Não existem docentes para colocar como responsaveis desta disciplina");
+            System.out.println("Nao existem docentes para colocar como responsaveis desta disciplina");
             System.out.println("Crie um docente no Menu de Pessoas!!!");
             return;
         }
@@ -85,6 +89,9 @@ public class Curso implements Serializable{
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void removeDisciplina()">
+    /**
+     * Requests a series of user inputs to remove a Disciplina
+     */
     public void removeDisciplina(){
         int count = listDisciplinas();
         
@@ -120,6 +127,10 @@ public class Curso implements Serializable{
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="int listDisciplinas()">
+    /**
+     * Prints all instances of Disciplina to console
+     * @return Integer stating the number of Disciplinas encountered
+     */
     public int listDisciplinas(){
         if(disciplinas.isEmpty()){
             System.out.println("Sem disciplinas para listar");
@@ -142,6 +153,10 @@ public class Curso implements Serializable{
     
     
     // <editor-fold defaultstate="collapsed" desc="void alteraDados(String altera)">
+    /**
+     * Allows the alteration of an existing Curso
+     * @param altera 
+     */
     public void alteraDados(String altera){
         Scanner scan = new Scanner(System.in);
         
@@ -187,6 +202,11 @@ public class Curso implements Serializable{
     } //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="int listExamsOfPessoa(Pessoa person)">
+    /**
+     * Prints all exams of Pessoa person
+     * @param person The Pessoa who's exams are to be printed
+     * @return Integer of amount of exams encountered for Pessoa person
+     */
     public int listExamsOfPessoa(Pessoa person){
         String prefix = "[" + this.getNome()+ "] ";
         int count = 0;
@@ -203,10 +223,19 @@ public class Curso implements Serializable{
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Duracao get/set">
+    /**
+     * Returns the duracao variable of a Curso
+     * @return integer duracao
+     */
     public int getDuracao() {
         return duracao;
     }
     
+    /**
+     * Sets duracao as the duracao variable of a Curso
+     * @param duracao The duracao to be set
+     * @return true if the duracao variable was set correctly, false if otherwise
+     */
     public boolean setDuracao(int duracao) {
         if(duracao < 1 || duracao > 9){
             System.out.println("Duracao invalida!!\n Duracao tem de ser entre 3 e 9 anos");
@@ -218,10 +247,19 @@ public class Curso implements Serializable{
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Grau get/set">
+    /**
+     * Returns the grau variable of a Curso
+     * @return String grau
+     */
     public String getGrau() {
         return grau;
     }
     
+    /**
+     * Sets the grau variable of a Curso
+     * @param grau String [L|Licenciatura / M|Mestrado / D|Doutoramento] (Insert character)
+     * @return Returns true if the grau variable was set correctly, false if otherwise
+     */
     public boolean setGrau(String grau) {
         switch (grau) {
             case "L":
@@ -255,10 +293,18 @@ public class Curso implements Serializable{
  //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Nome get/set">
+    /**
+     * Returns the nome variable of the Curso
+     * @return String nome
+     */
     public String getNome() {
         return nome;
     }
     
+    /**
+     * Sets nome as the nome variable of Curso
+     * @param nome
+     */
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -274,6 +320,9 @@ public class Curso implements Serializable{
     }
     
     //<editor-fold defaultstate="collapsed" desc="void writeListaDisciplinasToLIST()">
+    /**
+     * Writes all instances of Disciplina to a predefined list file.
+     */
     public void writeListaDisciplinasToLIST(){
         int listados = listDisciplinas();
         
@@ -351,11 +400,20 @@ public class Curso implements Serializable{
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="ArrayList<Curso> getDisciplinas()">
+/**
+ * Returns the disciplinas ArrayList
+ * @return disciplinas ArrayList (Disciplina)
+ */
 public ArrayList<Disciplina> getDisciplinas(){
     return this.disciplinas;
 } //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="Curso getDisciplinas(int index)">
+/**
+ * Returns the instance of Disciplina in ArrayList disciplinas at index "index"
+ * @param index
+ * @return Disciplina "index" of ArrayList disciplinas
+ */
 public Disciplina getDisciplina(int index){
     Disciplina novo;
     
@@ -370,6 +428,10 @@ public Disciplina getDisciplina(int index){
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="int escolheDisciplina()">
+/**
+ * Allows the user to search for a Disciplina in ArrayList disciplinas
+ * @return the index of the chosen Disciplina
+ */
 public int escolheDisciplina(){
     Scanner scan = new Scanner(System.in);
     int escolha;

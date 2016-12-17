@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 /**
- *
+ * @author Kwinten Jacobs
  * @author Luis David
+ *
  * @version 0.2
  */
 public class Sala implements Serializable{
@@ -91,6 +92,11 @@ public class Sala implements Serializable{
         }
     }
     
+    /**Attempts to reserve the sala on date dt for timespan dur and if this is the case, reserves the sala on this date for that timespan
+     * @param dt The date of the reservation
+     * @param dur The duration of the reservation
+     * @return True if the sala is reserved succesfully, false if otherwise
+     */
     public boolean reserveSala(Date dt, int dur){
         dur = checkDuration(dt, dur);
         if(this.isOccupied(dt,dur)){
@@ -103,14 +109,20 @@ public class Sala implements Serializable{
         return true;
     }
     
-    public void freeSala(Date dt, int dur){
-        int rem = timeslots.indexOf(dt);
-        timeslots.remove(rem);
-        duration.remove(rem);
-        
+    /**Frees index "slot" from the sala's timeslot and duration ArrayLists. This method is to be used in conjunction with Disciplina.removeExame();
+     * @param slot This integer should be retrieved from the disciplina.removeExame() function
+     */
+    public void freeSala(int slot) {
+    	timeslots.remove(slot);
+    	duration.remove(slot);
     }
     
     
+    /**Checks whether the sala is available on Date new_date at time.
+     * @param new_date
+     * @param time
+     * @return true if the sala is occupied, false if the sala is available
+     */
     public boolean isOccupied(Date new_date, int time){
         Date cur_date, cur_end, new_end;
         int dur;
@@ -132,14 +144,23 @@ public class Sala implements Serializable{
         return false;
     }
     
+    /**Returns the ID of the sala
+     * @return String ID
+     */
     public String getId(){
         return this.id;
     }
 
+    /**Returns the timeslots ArrayList of the Sala
+     * @return ArrayList<Date> timeslots
+     */
     public ArrayList<Date> getTimeslots() {
         return this.timeslots;
     }
 
+    /**Returns the duration ArrayList of the Sala
+     * @return ArrayList<Integer> duration
+     */
     public ArrayList<Integer> getDuration() {
         return this.duration;
     }
@@ -167,6 +188,10 @@ public class Sala implements Serializable{
         return str;
     }
     
+    /**
+     * @param index
+     * @return
+     */
     public String printHour(int index) {
         String str = "";
         
@@ -320,32 +345,10 @@ public class Sala implements Serializable{
             System.out.println("Antigo valor: " + ANSI_RED + dur + ANSI_RESET);
             System.out.println("Novo valor: " + ANSI_GREEN + new_dur + ANSI_RESET);
             
-        }
+        } //</editor-fold>
         
         return new_dur;
     }
-     //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="listOcupation()">
-    
-    public void listOcupation(){
-        if(timeslots.isEmpty()){
-            System.out.println("Sem ocupacao");
-            return;
-        }
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm");
-        String ocupado;
-        
-        System.out.println("\n--------------Ocupacao da Sala "+ this.getId()+ "--------------\n");
-        for (int i = 0; i < timeslots.size(); i++) {
-            ocupado = sdf.format(timeslots.get(i)) + this.duration.get(i) +"\n";
-            System.out.println(ocupado);
-            
-        }
-        System.out.println("\n--------------------------------------\n");
-    }
-    
-//</editor-fold>
     
 }

@@ -21,7 +21,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
- *
+ * @author Kwinten Jacobs
  * @author Luis David
  */
 public class DEI {
@@ -44,6 +44,14 @@ public class DEI {
     
 
     //<editor-fold defaultstate="collapsed" desc="void createPessoa(String classe)">
+    /**
+     * Starts a series of input requests that allow the user to create an instance of type classe.
+     * Classe must be one of the following strings: "aluno", "docente" or "nao docente".
+     * 
+     * The newly created Pessoa of subclass (classe) is then placed in the pessoa arraylist of the DEI instance.
+     * 
+     * @param classe Defines the subclass of the person that is created [aluno/docente/nao docente]
+     */
     public void createPessoa(String classe){
         String novo_nome;
         String novo_email;
@@ -255,10 +263,10 @@ public class DEI {
             
             while (true) {
                 System.out.println("Insira a area de investigacao do novo Docente");
-                System.out.println("SC/Secretaria | FN/Financeiro | AT/Apoio TÃ©cnico");
+                System.out.println("SC/Secretaria | FN/Financeiro | AT/Apoio Técnico");
                 novo_cargo = scan.nextLine();
                 if(novo_cargo.equals("Secretaria") || novo_cargo.equals("Financeiro") 
-                        || novo_cargo.equals("Apoio TÃ©cnico")){
+                        || novo_cargo.equals("Apoio Técnico")){
                     
                     break;
                 }
@@ -271,7 +279,7 @@ public class DEI {
                     break;
                 }
                 else if(novo_cargo.equals("AT")){
-                    novo_cargo = "Apoio TÃ©cnico";
+                    novo_cargo = "Apoio Técnico";
                     break;
                 }
                 
@@ -286,6 +294,12 @@ public class DEI {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void createAluno(String nome, String email, int num)">
+    /**
+     * Returns an instance of class Aluno and places it in the pessoa ArrayList of the DEI instance.
+     * @param nome Name of the student
+     * @param email Email of the student
+     * @param num Number of the student
+     */
     public void createAluno(String nome, String email, int num){
         Aluno al = new Aluno(nome, email, num);
         pessoa.add(al);
@@ -293,6 +307,15 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void createDocente(String nome, String email, int num, String categ, String area)">
+    /**
+     * Returns an instance of class Docente and places it in the pessoa ArrayList of the DEI instance.
+     * 
+     * @param nome Name of the Docente
+     * @param email Email of the Docente
+     * @param num Number of the Docente
+     * @param categ Category of the Docente [Assistente/Auxiliar/Associado/Catedratico]
+     * @param area Area of investigation of the Docente [Sistemas de Informacao / Comunicacao e Telematica / Engenharia de Software]
+     */
     public void createDocente(String nome, String email, int num, String categ, String area){
         Docente dc = new Docente(nome, email, num, categ, area);
         pessoa.add(dc);
@@ -300,6 +323,15 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void createNaoDocente(String nome, String email, int num, String categ, String cargo)">
+    /**
+     * Returns an instance of class NaoDocente and places it in the pessoa ArrayList of the DEI instance.
+     * 
+     * @param nome Name of the NaoDocente
+     * @param email Email of the NaoDocente
+     * @param num Number of the NaoDocente
+     * @param categ Category of the NaoDocente [Assistente/Auxiliar/Associado/Catedratico] 
+     * @param cargo Subsector of the NaoDocente [Secretaria / Financeiro / Apoio Tecnico]
+     */
     public void createNaoDocente(String nome, String email, int num, String categ, String cargo){
         NaoDocente ndc = new NaoDocente(nome, email, num, categ, cargo);
         pessoa.add(ndc);
@@ -307,6 +339,13 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="int listPessoa(String classe)">
+    /**
+     * Prints all instances of class classe in ArrayList pessoa onto the console and returns
+     * an integer with the number of instances of said class encountered
+     * 
+     * @param classe The subclass of pessoa that is needed to be printed [aluno / docente / nao docente /functionario]
+     * @return An integer with the number of instances of classe encountered
+     */
     public int listPessoa(String classe){
         int count = 0;
         
@@ -350,7 +389,7 @@ public class DEI {
                 }
             }
             
-            System.out.println(get);
+            System.out.println("["+count+"] "+get);
             count++;
             
             
@@ -362,6 +401,12 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Pessoa getPessoa(String classe, int index)">
+    /**
+     * Returns the n-th instance of class "classe" from ArrayList pessoa, where n is the number given as <index> 
+     * @param classe The subclass of pessoa that is requested [aluno / docente / nao docente /functionario]
+     * @param index Indicates which instance of "classe" is required
+     * @return The n-th instance of class "classe", where n = index
+     */
     public Pessoa getPessoa(String classe, int index){
         int count = 0;
         
@@ -395,6 +440,9 @@ public class DEI {
     
     
     // <editor-fold defaultstate="collapsed" desc="void createCurso()">
+    /**
+     * Starts a series of input-requests that allows the user to create a new instance of class Curso.
+     */
     public void createCurso(){
         Scanner scan = new Scanner(System.in);
         String novo_nome;
@@ -440,6 +488,9 @@ public class DEI {
     } //</editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="void removeCurso()">
+    /**
+     * Lists all instances of class Curso and allows the user to remove any one.
+     */
     public void removeCurso(){
         int escolha;
         
@@ -464,9 +515,13 @@ public class DEI {
     } //</editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="int listCursos()">
+    /**
+     * Lists all existing instances of class Curso in the cursos ArrayList and returns an integer identifying the amount of instances thereof encountered in the ArrayList
+     * @return The amount of instances of class Curso in ArrayList cursos as integer.
+     */
     public int listCursos(){
         if(cursos.isEmpty()){
-            System.out.println("NÃ£o existem cursos para listar");
+            System.out.println("Não existem cursos para listar");
             return 0;
         }
         int count = 0;
@@ -481,8 +536,32 @@ public class DEI {
         return count;
         
     } //</editor-fold>
+    
+ // <editor-fold defaultstate="collapsed" desc="int listCursos()">
+    /**
+     * Lists all existing instances of class Sala in the salas ArrayList and returns an integer identifying the amount of instances thereof encountered in the ArrayList
+     * @return The amount of instances of class Sala in ArrayList salas as integer.
+     */
+    public int listSalas(){
+        if(salas.isEmpty()){
+            System.out.println("Não existem salas para listar");
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i < salas.size(); i++) {
+            System.out.println(i+1 + " " + salas.get(i));
+            count++;
+        }
+        
+        return count;
+        
+    } //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="int escolheCurso()">
+    /**
+     * Lists all existing instances of Curso in ArrayList cursos and allows the user to select one instance by inputting the corresponding number of the Curso
+     * @return The index number of the selected Curso in ArrayList cursos
+     */
     public int escolheCurso(){
         Scanner scan = new Scanner(System.in);
         int escolha;
@@ -509,11 +588,20 @@ public class DEI {
 //</editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="ArrayList<Curso> getCursos()">
+    /**
+     * Returns the cursos ArrayList
+     * @return ArrayList of type Curso
+     */
     public ArrayList<Curso> getCursos(){
         return this.cursos;
     } //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Curso getCurso(int index)">
+    /**
+     * Returns the instance of Curso from ArrayList cursos at the given index
+     * @param index The index of the ArrayList from which the Curso should be chosen
+     * @return Instance of type Curso
+     */
     public Curso getCurso(int index){
         Curso novo;
         
@@ -528,6 +616,11 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void setCurso(int index, Curso insere)">
+    /**
+     * Inserts a given Curso into the cursos ArrayList at index "index".
+     * @param index Identifies where the Curso should be inserted
+     * @param insere The Curso to be inserted
+     */
     public void setCurso(int index, Curso insere){
         Curso novo;
         
@@ -541,6 +634,11 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="int listExamsOfPessoa(Pessoa person)">
+    /**
+     * (INCOMPLETE) Prints all exams of a given Pessoa and returns an integer with the number of exams encountered.
+     * @param person The Pessoa who's exams are to be listed
+     * @return An integer of the amount of exams encountered.
+     */
     public int listExamsOfPessoa(Pessoa person){
         int count = 0;
         
@@ -556,6 +654,11 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Pessoa escolherPessoa(String classe)">
+    /**
+     * Returns a subclass of Pessoa from the pessoa ArrayList defined by user input in the function
+     * @param classe The subclass of Pessoa which is being requested [aluno / docente / nao docente]
+     * @return The chosen [aluno / docente / nao docente] as Pessoa
+     */
     public Pessoa escolherPessoa(String classe){
         Scanner scan = new Scanner(System.in);
         int count = listPessoa(classe);
@@ -591,6 +694,10 @@ public class DEI {
     
     
     //<editor-fold defaultstate="collapsed" desc="void writeListaPessoasToLIST( String classe)">
+    /**
+     * Writes all instances of type classe to a predefined data file.
+     * @param classe [aluno / docente / nao docente]
+     */
     public void writeListaPessoasToLIST( String classe){
         int listados = listPessoa(classe);
         
@@ -705,6 +812,9 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void writeListaCursosToLIST()">
+    /**
+     * Writes all instances of Curso to a predefined text file
+     */
     public void writeListaCursosToLIST(){
         int listados = listCursos();
         
@@ -782,6 +892,9 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void writePessoasToTXT()">
+    /**
+     * Writes all instances of Pessoa to a predefined textfile.
+     */
     public void writePessoasToTXT(){
         String foldername = "_Dados";
         File pasta = new File(foldername);
@@ -829,6 +942,9 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void readPessoasFromTXT()">
+    /**
+     * Reads all instances of Pessoa from a predefined textfile.
+     */
     public void readPessoasFromTXT(){
         String foldername = "_Dados";
         File pasta = new File(foldername);
@@ -936,6 +1052,9 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void writeCursosToOBJ()">
+    /**
+     * Writes all instances of Curso to a predefined object file.
+     */
     public void writeCursosToOBJ(){
         String foldername = "_Dados";
         File pasta = new File(foldername);
@@ -980,6 +1099,9 @@ public class DEI {
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="void readCursosToOBJ()">
+    /**
+     * Reads all instances of Curso from a predefined object file.
+     */
     public void readCursosToOBJ(){
         String foldername = "_Dados";
         File pasta = new File(foldername);
@@ -1023,78 +1145,22 @@ public class DEI {
     }
 //</editor-fold>
     
-    public void createSala(){
-        Sala sala;
-        
-        String nome;
-        Scanner scan = new Scanner(System.in);
-        
-        System.out.println("Escolha o nome da nova Sala:");
-        nome = scan.nextLine();
-        
-        sala = new Sala(nome);
-        salas.add(sala);
-        System.out.println("Sala " + sala.getId()+" criada com sucesso!");
-        
-    }
     
+    /**
+     * (OBSOLETE?) Returns an instance of class Sala from the ArrayList salas at index sala;
+     * @param sala The index of the ArrayList to be used
+     * @return Instance of class Sala
+     */
     public Sala getSala(int sala) {
     	return salas.get(sala);
     }
     
+    /**
+     * (OBSOLETE?) Adds an instance of class Sala to the salas ArrayList
+     * @param sala The instance of class Sala to be added
+     */
     public void addSala(Sala sala) {
     	salas.add(sala);
     }
     
-    // <editor-fold defaultstate="collapsed" desc="int listSalas()">
-    public int listSalas(){
-        if(salas.isEmpty()){
-            System.out.println("NÃ£o existem salas para listar");
-            return 0;
-        }
-        int count = 0;
-        System.out.println("\n------------------------------------\n");
-        for (int i = 0; i < salas.size(); i++) {
-            System.out.println(i+1 + " " + salas.get(i).getId());
-            count++;
-        }
-        System.out.println("\n------------------------------------\n");
-        
-        return count;
-        
-    } //</editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="int listSalaOcupation()">
-    public void listSalaOcupation(){
-        int count = listSalas();
-        if(count == 0){
-            return;
-        }
-        Scanner scan = new Scanner(System.in);
-        int escolha;
-        while(true){
-            System.out.println("Escolha a sala para listar a ocupacao[0-" +count+"]:");
-            
-            while (!scan.hasNextInt()) {
-                System.out.println("Insercao invalida");
-                scan.nextLine();
-            }
-            
-            escolha = scan.nextInt();
-            if(escolha >= 0 && escolha <= count){
-                break;
-            }
-            System.out.println("Escolha invalida");
-        }
-        
-        if(escolha == 0){
-            System.out.println("A cancelar listagem...");
-            return;
-        }
-        
-        Sala sala = salas.get(escolha -1);
-        
-        sala.listOcupation();
-        
-    } //</editor-fold>
 }

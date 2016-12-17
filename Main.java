@@ -9,7 +9,7 @@ package project;
 
 import java.util.Scanner;
 /**
- *
+ * @author Kwinten Jacobs
  * @author Luis David
  */
 
@@ -25,6 +25,8 @@ public class Main {
         
         departamento.readPessoasFromTXT();
         departamento.readCursosToOBJ();
+        Sala sala = new Sala("kek");
+    	departamento.addSala(sala);
         while(true){
             menu_main(departamento);
         }
@@ -38,7 +40,6 @@ public class Main {
         System.out.println("=================== MENU PRINCIPAL =======================\n");
         System.out.println("[1] Gerir Cursos");
         System.out.println("[2] Gerir Pessoas");
-        System.out.println("[3] Gerir Salas");
         System.out.println("[0] Sair");
         System.out.println("\nInsira a sua escolha:");
 
@@ -56,9 +57,6 @@ public class Main {
                 break;
             case 2:
                 while(menu_pessoas(departamento) != 0);
-                break;
-            case 3:
-                while(menu_salas(departamento) != 0);
                 break;
             case 0:
                 System.out.println("Writing to Files...");
@@ -188,15 +186,6 @@ public class Main {
             case 8:
                 departamento.writeListaPessoasToLIST("todos");
                 break;
-            case 9:
-                
-                break;
-            case 10:
-                departamento.writeListaPessoasToLIST("todos");
-                break;
-            case 11:
-                departamento.writeListaPessoasToLIST("todos");
-                break;
             case 0:
                 System.out.println("Returning to Main Menu...");
                 return 0;
@@ -212,8 +201,6 @@ public class Main {
     private static int menu_disciplinas(DEI departamento, Curso curso, int index){
         int choice;
         Scanner scan = new Scanner(System.in);
-        Disciplina altera;
-        int escolha;
         
         System.out.println("=================== MENU DE " +curso.toString().toUpperCase()+ " =======================\n");
         System.out.println("[1] Adicionar Disciplina");
@@ -254,7 +241,7 @@ public class Main {
                 curso.alteraDados("grau");
                 break;
             case 6:case 7:case 8:case 9:case 10:
-            	escolha = curso.escolheDisciplina();
+            	int escolha = curso.escolheDisciplina();
 
                 if(escolha == -1){
                     System.out.println("Nao existem cursos");
@@ -265,7 +252,7 @@ public class Main {
                     break;
                 }
                 
-                altera = curso.getDisciplina(escolha-1);
+                Disciplina altera = curso.getDisciplina(escolha-1);
                 
                 switch (choice) {
                 case 6:
@@ -283,28 +270,20 @@ public class Main {
                 case 10:
                     altera.listAlunos();
                     break;
+                case 0:
+                	return 0;
                 default:
                     break;
-            }
-                break;
-            case 0:
-                System.out.println("Returning to Main Menu...");
-                return 0;
-            default:
-                System.out.println("Escolha Invalida!");
+                }
         }
-        
-        departamento.setCurso(index, curso);
-        System.out.println("Prima ENTER para continuar");
-        scan.nextLine();
-        return choice;
+        return 1;
     }
     
     private static int menu_exames(DEI departamento, Disciplina disciplina) {
     	int choice;
         Scanner scan = new Scanner(System.in);
         
-        System.out.println("=================== MENU DE " +disciplina.getName().toUpperCase()+ " =======================\n");
+        System.out.println("=================== MENU DE " +disciplina.toString().toUpperCase()+ " =======================\n");
         System.out.println("[1] Adicionar exame");
         System.out.println("[2] Remover exame");
         System.out.println("[3] Listar exames");
@@ -331,14 +310,15 @@ public class Main {
             disciplina.createExame(departamento, disciplina);
             break;
         case 2:
-        	disciplina.removeExame();
+        	int sala =	disciplina.removeExame();
+        	departamento.getSala(sala).freeSala(sala);
             break;
         case 3:
-            //Checks if any exams exist
-            disciplina.listExams("normal");
-            disciplina.listExams("especial");
-            disciplina.listExams("recurso");
-        	
+        	//Checks if any exams exist
+        	if(disciplina.listExams("normal")!= 0) {
+        	disciplina.listExams("Especial");
+        	disciplina.listExams("recurso");
+        	}
             break;
         case 4:
         	System.out.println("Adicionar vigilantes");
@@ -356,7 +336,7 @@ public class Main {
         	System.out.println("Alterar Sala");
         	break;
         case 9:
-        	System.out.println("Alterar docente responsavel");
+        	disciplina.changeDocente(departamento);
         	break;
         case 10:
         	System.out.println("Alterar data");
@@ -373,46 +353,4 @@ public class Main {
     } 
         return choice;
     }
-    
-    private static int menu_salas(DEI departamento){
-        int choice;
-        Scanner scan = new Scanner(System.in);
-        
-        System.out.println("=================== MENU SALAS =======================\n");
-        System.out.println("[1] Criar Sala");
-        System.out.println("[2] Listar Salas");
-        System.out.println("[3] Listar Ocupacao");
-        System.out.println("[0] Voltar");
-        System.out.println("\nInsira a sua escolha:");
-
-        while(!scan.hasNextInt()){
-            System.out.println("Insercao invalida!\nInsira um inteiro:");
-            scan.nextLine();
-        }
-        choice = scan.nextInt();
-
-        scan.nextLine(); // clears input
-
-        switch (choice) {
-            case 1:
-                departamento.createSala();
-                break;
-            case 2:
-                departamento.listSalas();
-                break;
-            case 3:
-                departamento.listSalaOcupation();
-                break;
-            case 0:
-                System.out.println("Returning to Main Menu...");
-                return 0;
-            default:
-                System.out.println("Escolha Invalida!");
-        }
-        
-        System.out.println("Prima ENTER para continuar");
-        scan.nextLine();
-        return choice;
-    }
-    
 }

@@ -2,7 +2,10 @@ package project;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * @author Kwinten Jacobs
+ * @author Luis David
+ */
 public class ExameNormal extends Exame implements Serializable{
     private static final long serialVersionUID = 508L;
 

@@ -3,7 +3,10 @@ package project;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * @author Kwinten Jacobs
+ * @author Luis David
+ */
 abstract class Exame implements Serializable{
     private static final long serialVersionUID = 506L;
 	

@@ -2,6 +2,10 @@ package project;
 
 import java.io.Serializable;
 
+/**
+ * @author Kwinten Jacobs
+ * @author Luis David
+ */
 public class Docente extends Functionario implements Serializable{
     private static final long serialVersionUID = 505L;
 	
@@ -12,10 +16,18 @@ public class Docente extends Functionario implements Serializable{
         setArea(area);
     }
 
+    /**Returns the area variable of the Docente
+     * @return String area
+     */
     public String getArea() {
         return area;
     }
     
+    /**
+     * Sets the area variable of the Docente
+     * @param area [Sistemas de Informacao / Comunicacao e Telematica / Engenharia de Software]
+     * @return True if succesful, false if param area is invalid
+     */
     public boolean setArea(String area) {
         switch (area) {
             case "Sistemas de Informacao":
@@ -25,7 +37,7 @@ public class Docente extends Functionario implements Serializable{
             case "Engenharia de Software":
                 break;
             default:
-                System.out.println("Area de Investigacao invalida!\n Escolha entre [Licenciatura | Mestrado | Doutoramento]");
+                System.out.println("Area de Investigacao invalida!\n Escolha entre [Sistemas de Informacao | Comunicacao e Telematica | Engenharia de Software]");
                 return false;
         }
         
