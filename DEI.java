@@ -402,7 +402,7 @@ public class DEI {
     
     //<editor-fold defaultstate="collapsed" desc="Pessoa getPessoa(String classe, int index)">
     /**
-     * Returns the n-th instance of class "classe" from ArrayList pessoa, where n is the number given as <index> 
+     * Returns the n-th instance of class "classe" from ArrayList pessoa, where n is the number given as index
      * @param classe The subclass of pessoa that is requested [aluno / docente / nao docente /functionario]
      * @param index Indicates which instance of "classe" is required
      * @return The n-th instance of class "classe", where n = index
@@ -521,7 +521,6 @@ public class DEI {
      */
     public int listCursos(){
         if(cursos.isEmpty()){
-            System.out.println("Não existem cursos para listar");
             return 0;
         }
         int count = 0;
@@ -532,26 +531,6 @@ public class DEI {
             count++;
         }
         System.out.println("-------------------------------\n");
-        
-        return count;
-        
-    } //</editor-fold>
-    
- // <editor-fold defaultstate="collapsed" desc="int listCursos()">
-    /**
-     * Lists all existing instances of class Sala in the salas ArrayList and returns an integer identifying the amount of instances thereof encountered in the ArrayList
-     * @return The amount of instances of class Sala in ArrayList salas as integer.
-     */
-    public int listSalas(){
-        if(salas.isEmpty()){
-            System.out.println("Não existem salas para listar");
-            return 0;
-        }
-        int count = 0;
-        for (int i = 0; i < salas.size(); i++) {
-            System.out.println(i+1 + " " + salas.get(i));
-            count++;
-        }
         
         return count;
         
@@ -1146,21 +1125,88 @@ public class DEI {
 //</editor-fold>
     
     
-    /**
-     * (OBSOLETE?) Returns an instance of class Sala from the ArrayList salas at index sala;
-     * @param sala The index of the ArrayList to be used
-     * @return Instance of class Sala
-     */
-    public Sala getSala(int sala) {
-    	return salas.get(sala);
-    }
+//    /**
+//     * (OBSOLETE?) Returns an instance of class Sala from the ArrayList salas at index sala;
+//     * @param sala The index of the ArrayList to be used
+//     * @return Instance of class Sala
+//     */
+//    public Sala getSala(int sala) {
+//    	return salas.get(sala);
+//    }
+//    
+//    /**
+//     * (OBSOLETE?) Adds an instance of class Sala to the salas ArrayList
+//     * @param sala The instance of class Sala to be added
+//     */
+//    public void addSala(Sala sala) {
+//    	salas.add(sala);
+//    }
     
-    /**
-     * (OBSOLETE?) Adds an instance of class Sala to the salas ArrayList
-     * @param sala The instance of class Sala to be added
-     */
-    public void addSala(Sala sala) {
+    public void createSala() {
+    	Sala sala;
+    	String nome;
+    	Scanner scan = new Scanner(System.in);
+    	
+    	System.out.println("Escolha o nome da nova Sala:");
+    	nome = scan.nextLine();
+    	
+    	sala = new Sala(nome);
     	salas.add(sala);
+    	System.out.println("Sala "+ sala.getId()+" criada com sucesso!");
     }
     
+ // <editor-fold defaultstate="collapsed" desc="int listSalas()">
+    public int listSalas(){
+    	if(salas.isEmpty()){
+    		System.out.println("Não existem salas para listar");
+    		return 0;
+        }
+        int count = 0;
+        System.out.println("\n------------------------------------\n");
+        for (int i = 0; i < salas.size(); i++) {
+        	System.out.println(i+1 + " " + salas.get(i).getId());
+            count++;
+        }
+        System.out.println("\n------------------------------------\n");
+            
+        return count;
+            
+        } //</editor-fold>
+        
+        // <editor-fold defaultstate="collapsed" desc="int listSalaOcupation()">
+       public void listSalaOcupation(){
+            int count = listSalas();
+            if(count == 0){
+                return;
+            }
+            Scanner scan = new Scanner(System.in);
+            int escolha;
+            while(true){
+               System.out.println("Escolha a sala para listar a ocupacao[0-" +count+"]:");
+                
+                while (!scan.hasNextInt()) {
+                    System.out.println("Insercao invalida");
+                    scan.nextLine();
+                }
+                
+                escolha = scan.nextInt();
+                if(escolha >= 0 && escolha <= count){
+                    break;
+                }
+                System.out.println("Escolha invalida");
+            }
+           
+            if(escolha == 0){
+                System.out.println("A cancelar listagem...");
+                return;
+            }
+            
+            Sala sala = salas.get(escolha -1);
+            
+            sala.listOcupation();
+            
+        } //</editor-fold>
+	     public Sala getSala(int sala) {
+	    	 return salas.get(sala);
+	     }
 }

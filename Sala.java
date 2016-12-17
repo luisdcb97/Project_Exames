@@ -117,6 +117,12 @@ public class Sala implements Serializable{
     	duration.remove(slot);
     }
     
+    public void freeSala(Date dt, int dur) {
+    	int rem = timeslots.indexOf(dt);
+    	timeslots.remove(rem);
+    	duration.remove(rem);
+    }
+    
     
     /**Checks whether the sala is available on Date new_date at time.
      * @param new_date
@@ -152,14 +158,14 @@ public class Sala implements Serializable{
     }
 
     /**Returns the timeslots ArrayList of the Sala
-     * @return ArrayList<Date> timeslots
+     * @return ArrayList(Date) timeslots
      */
     public ArrayList<Date> getTimeslots() {
         return this.timeslots;
     }
 
     /**Returns the duration ArrayList of the Sala
-     * @return ArrayList<Integer> duration
+     * @return ArrayList(Integer) duration
      */
     public ArrayList<Integer> getDuration() {
         return this.duration;
@@ -345,10 +351,30 @@ public class Sala implements Serializable{
             System.out.println("Antigo valor: " + ANSI_RED + dur + ANSI_RESET);
             System.out.println("Novo valor: " + ANSI_GREEN + new_dur + ANSI_RESET);
             
-        } //</editor-fold>
+        } 
         
         return new_dur;
-    }
+    }//</editor-fold>
     
-    
+  //<editor-fold defaultstate="collapsed" desc="listOcupation()">
+        
+    public void listOcupation(){
+    	if(timeslots.isEmpty()){
+            System.out.println("Sem ocupacao");
+            return;
+        }
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm");
+            String ocupado;
+            
+            System.out.println("\n--------------Ocupacao da Sala "+ this.getId()+ "--------------\n");
+            for (int i = 0; i < timeslots.size(); i++) {
+                ocupado = sdf.format(timeslots.get(i)) + this.duration.get(i) +"\n";
+                System.out.println(ocupado);
+                
+            }
+            System.out.println("\n--------------------------------------\n");
+        }
+         
+    //</editor-fold>
 }
