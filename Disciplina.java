@@ -16,31 +16,6 @@ public class Disciplina implements Serializable{
     ArrayList<Aluno> alunos = new ArrayList<Aluno>();
     ArrayList<Exame> exames = new ArrayList<Exame>();
     
-    // <editor-fold defaultstate="collapsed" desc="Color variables">
-    // final makes the value unchangeable
-    // static means all instances share the same variable instead of creating a copy for themselves
-    // \n funciona como ANSI_RESET
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_BLACK = "\u001B[30m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
-    private static final String ANSI_YELLOW = "\u001B[33m";
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_PURPLE = "\u001B[35m";
-    private static final String ANSI_CYAN = "\u001B[36m";
-    private static final String ANSI_WHITE = "\u001B[37m";
-    
-    private static final String ANSI_BLACK_BKG = "\u001B[40m";
-    private static final String ANSI_RED_BKG = "\u001B[41m";
-    private static final String ANSI_GREEN_BKG = "\u001B[42m";
-    private static final String ANSI_YELLOW_BKG = "\u001B[43m";
-    private static final String ANSI_BLUE_BKG = "\u001B[44m";
-    private static final String ANSI_PURPLE_BKG = "\u001B[45m";
-    private static final String ANSI_CYAN_BKG = "\u001B[46m";
-    private static final String ANSI_WHITE_BKG = "\u001B[47m";
-    //</editor-fold>
-
-
     public Disciplina(String nome, Docente responsavel){
         this.name = nome;
         this.docenteresponsavel = responsavel;
@@ -129,6 +104,28 @@ public class Disciplina implements Serializable{
     }
 //</editor-fold>
     
+    public void addAluno(DEI departamento){
+        Aluno student = (Aluno) departamento.escolherPessoa("aluno");
+        
+        if(student == null){
+            return;
+        }
+        
+        alunos.add(student);
+        System.out.println("Aluno "+ student.getName() +" adicionado a disciplina "+ this.getName());
+    }
+    
+    public void addDocente(DEI departamento){
+        Docente teacher = (Docente) departamento.escolherPessoa("docente");
+        
+        if(teacher == null){
+            return;
+        }
+        
+        this.docentes.add(teacher);
+        System.out.println("Docente "+ teacher.getName() +" adicionado a disciplina "+ this.getName());
+    }
+    
     public String getName() {
         return name;
     }
@@ -180,7 +177,7 @@ public class Disciplina implements Serializable{
     }
   //</editor-fold>      
     
-    public void createExame(DEI departamento, Disciplina disciplina) {
+  public void createExame(DEI departamento, Disciplina disciplina) {
     	Scanner scan = new Scanner(System.in);
     	int tipo,dia,mes,ano,hora,minuto,tempo,docente,sala;
     	tipo = selectExame();
@@ -552,10 +549,10 @@ public class Disciplina implements Serializable{
         
         if(day < 1 || day > 31){
             String str = "";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "O valor inserido para dia do exame ";
-            str += ANSI_CYAN + "[" + day + "]";
-            str += ANSI_WHITE + " e invalido\n";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "Insira um novo valor:\n"+ ANSI_RESET;
+            str += "O valor inserido para dia do exame ";
+            str += "[" + day + "]";
+            str += " e invalido\n";
+            str += "Insira um novo valor:\n";
             System.out.print(str);
 
             do{
@@ -566,15 +563,15 @@ public class Disciplina implements Serializable{
                 vec[0] = scan.nextInt();
             } while(vec[0] < 1 || vec[0] > 31);
             
-            System.out.println("Antigo valor: " + ANSI_RED + day + ANSI_RESET);
-            System.out.println("\nNovo valor: " + ANSI_GREEN + vec[0] + ANSI_RESET);
+            System.out.println("Antigo valor: ");
+            System.out.println("\nNovo valor: ");
         }
         if(mon < 1 || mon > 12){
             String str = "";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "O valor inserido para mes do exame ";
-            str += ANSI_CYAN + "[" + mon + "]";
-            str += ANSI_WHITE + " e invalido\n";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "Insira um novo valor:\n"+ ANSI_RESET;
+            str +="O valor inserido para mes do exame ";
+            str +="[" + mon + "]";
+            str +=  " e invalido\n";
+            str +=  "Insira um novo valor:\n";
             
             System.out.print(str);
 
@@ -586,15 +583,15 @@ public class Disciplina implements Serializable{
                 vec[1] = scan.nextInt();
             } while(vec[1] < 1 || vec[1] > 12);
 
-            System.out.println("Antigo valor: " + ANSI_RED + mon + ANSI_RESET);
-            System.out.println("Novo valor: " + ANSI_GREEN + vec[1] + ANSI_RESET);
+            System.out.println("Antigo valor: ");
+            System.out.println("Novo valor: " );
         }
         if(year < 1 ){
             String str = "";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "O valor inserido para ano do exame ";
-            str += ANSI_CYAN + "[" + year + "]";
-            str += ANSI_WHITE + " e invalido\n";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "Insira um novo valor:\n"+ ANSI_RESET;
+            str += "O valor inserido para ano do exame ";
+            str +=  "[" + year + "]";
+            str +=  " e invalido\n";
+            str +=  "Insira um novo valor:\n";
             
             System.out.print(str);
 
@@ -606,15 +603,15 @@ public class Disciplina implements Serializable{
                 vec[2] = scan.nextInt();
             } while(vec[2] < 1 );
 
-            System.out.println("Antigo valor: " + ANSI_RED + year + ANSI_RESET);
-            System.out.println("Novo valor: " + ANSI_GREEN + vec[2] + ANSI_RESET);
+            System.out.println("Antigo valor: ");
+            System.out.println("Novo valor: " );
         }
         if(hour < 0 || hour > 23 ){
             String str = "";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "O valor inserido para hora do exame ";
-            str += ANSI_CYAN + "[" + hour + "]";
-            str += ANSI_WHITE + " e invalido\n";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "Insira um novo valor:\n"+ ANSI_RESET;
+            str +=  "O valor inserido para hora do exame ";
+            str += "[" + hour + "]";
+            str += " e invalido\n";
+            str +=  "Insira um novo valor:\n";
             
             System.out.print(str);
 
@@ -626,15 +623,15 @@ public class Disciplina implements Serializable{
                 vec[3] = scan.nextInt();
             } while(vec[3] < 0 || vec[3] > 23 );
 
-            System.out.println("Antigo valor: " + ANSI_RED + hour + ANSI_RESET);
-            System.out.println("Novo valor: " + ANSI_GREEN + vec[3] + ANSI_RESET);
+            System.out.println("Antigo valor: " );
+            System.out.println("Novo valor: " );
         }
         if(min < 0 || min > 59 ){
             String str = "";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "O valor inserido para minuto do exame ";
-            str += ANSI_CYAN + "[" + min + "]";
-            str += ANSI_WHITE + " e invalido\n";
-            str += ANSI_WHITE + ANSI_BLUE_BKG  + "Insira um novo valor:\n"+ ANSI_RESET;
+            str +="O valor inserido para minuto do exame ";
+            str += "[" + min + "]";
+            str += " e invalido\n";
+            str +=  "Insira um novo valor:\n";
             
             System.out.print(str);
 
@@ -646,8 +643,8 @@ public class Disciplina implements Serializable{
                 vec[4] = scan.nextInt();
             } while(vec[4] < 0 || vec[4] > 59);
 
-            System.out.println("Antigo valor: " + ANSI_RED + min + ANSI_RESET);
-            System.out.println("Novo valor: " + ANSI_GREEN + vec[4] + ANSI_RESET);
+            System.out.println("Antigo valor: " );
+            System.out.println("Novo valor: " );
         }
         return vec;
     }// </editor-fold>
