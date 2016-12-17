@@ -76,7 +76,7 @@ public class Sala implements Serializable{
             ex.printStackTrace();
             System.out.println("Error parsing string into date");
         }
-
+        
         reserveSala(temp, dur);
     }
     
@@ -114,7 +114,7 @@ public class Sala implements Serializable{
             new_end = new Date( new_date.getTime() + (long) time);
             
             if(cur_date.equals(new_date) // Dates cant start at the same time
-                    || (cur_date.before(new_date) // new date cant start between the beginning and end of an already existing exam
+                    || (cur_date.before(new_date) // new date cant start between the beggining and end of an already existing exam
                             && cur_end.after(new_date))
                     || (new_date.before(cur_date)   // new date cant start before an already existing date AND end after that date
                             && new_end.after(cur_date))){
