@@ -11,7 +11,7 @@ public class ExameNormal extends Exame implements Serializable{
     }
 
     @Override
-    public void addAluno(Aluno a) {
+    void addAluno(Aluno a) {
         if( checkDone()){
             return;
         }

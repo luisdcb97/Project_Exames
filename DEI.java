@@ -255,10 +255,10 @@ public class DEI {
             
             while (true) {
                 System.out.println("Insira a area de investigacao do novo Docente");
-                System.out.println("SC/Secretaria | FN/Financeiro | AT/Apoio TÃ©cnico");
+                System.out.println("SC/Secretaria | FN/Financeiro | AT/Apoio Técnico");
                 novo_cargo = scan.nextLine();
                 if(novo_cargo.equals("Secretaria") || novo_cargo.equals("Financeiro") 
-                        || novo_cargo.equals("Apoio TÃ©cnico")){
+                        || novo_cargo.equals("Apoio Técnico")){
                     
                     break;
                 }
@@ -271,7 +271,7 @@ public class DEI {
                     break;
                 }
                 else if(novo_cargo.equals("AT")){
-                    novo_cargo = "Apoio TÃ©cnico";
+                    novo_cargo = "Apoio Técnico";
                     break;
                 }
                 
@@ -350,7 +350,7 @@ public class DEI {
                 }
             }
             
-            System.out.println(get);
+            System.out.println("["+count+"] "+get);
             count++;
             
             
@@ -466,7 +466,7 @@ public class DEI {
     // <editor-fold defaultstate="collapsed" desc="int listCursos()">
     public int listCursos(){
         if(cursos.isEmpty()){
-            System.out.println("NÃ£o existem cursos para listar");
+            System.out.println("Não existem cursos para listar");
             return 0;
         }
         int count = 0;
@@ -477,6 +477,22 @@ public class DEI {
             count++;
         }
         System.out.println("-------------------------------\n");
+        
+        return count;
+        
+    } //</editor-fold>
+    
+ // <editor-fold defaultstate="collapsed" desc="int listCursos()">
+    public int listSalas(){
+        if(salas.isEmpty()){
+            System.out.println("Não existem salas para listar");
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i < salas.size(); i++) {
+            System.out.println(i+1 + " " + salas.get(i));
+            count++;
+        }
         
         return count;
         
@@ -1017,4 +1033,14 @@ public class DEI {
         
     }
 //</editor-fold>
+    
+    
+    public Sala getSala(int sala) {
+    	return salas.get(sala);
+    }
+    
+    public void addSala(Sala sala) {
+    	salas.add(sala);
+    }
+    
 }

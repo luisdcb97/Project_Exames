@@ -26,6 +26,8 @@ public class Main {
         departamento.readPessoasFromTXT();
         departamento.readCursosToOBJ();
         while(true){
+        	Sala sala = new Sala("kek");
+        	departamento.addSala(sala);
             menu_main(departamento);
         }
     }  
@@ -207,6 +209,7 @@ public class Main {
         System.out.println("[4] Alterar Duracao");
         System.out.println("[5] Alterar Grau");
         System.out.println("[6] Gerir Exames");
+        //Adicionar Docente & Adicionar Aluno not implemented!!!
         System.out.println("[5] Adicionar Docente");
         System.out.println("[6] Adicionar Aluno");
         System.out.println("[0] Voltar");
@@ -275,7 +278,14 @@ public class Main {
         System.out.println("[1] Adicionar exame");
         System.out.println("[2] Remover exame");
         System.out.println("[3] Listar exames");
-        System.out.println("[4] Alterar exame");
+        System.out.println("[4] Adicionar vigilantes");
+        System.out.println("[5] Adicionar naodocentes");
+        System.out.println("[6] Adicionar alunos");
+        System.out.println("[7] Alterar notas (RNG)");
+        System.out.println("[8] Alterar Sala");
+        System.out.println("[9] Alterar docente responsavel");
+        System.out.println("[10] Alterar data");
+        System.out.println("[11] Alterar duracao");
         System.out.println("\nInsira a sua escolha:");
 
         while(!scan.hasNextInt()){
@@ -288,17 +298,42 @@ public class Main {
     	
         switch (choice) {
         case 1:
-            System.out.println("Adicionar exame");
+            disciplina.createExame(departamento, disciplina);
             break;
         case 2:
-        	System.out.println("Adicionar exame");
+        	disciplina.removeExame();
             break;
         case 3:
-        	System.out.println("Adicionar exame");
+        	//Checks if any exams exist
+        	if(disciplina.listExams("normal")!= 0) {
+        	disciplina.listExams("Especial");
+        	disciplina.listExams("recurso");
+        	}
             break;
         case 4:
-        	System.out.println("Adicionar exame");
+        	System.out.println("Adicionar vigilantes");
             break;
+        case 5:
+        	System.out.println("Adicionar naodocentes");
+        	break;
+        case 6:
+        	System.out.println("Adicionar alunos");
+        	break;
+        case 7:
+        	System.out.println("Alterar notas (RNG)");
+        	break;
+        case 8:
+        	System.out.println("Alterar Sala");
+        	break;
+        case 9:
+        	System.out.println("Alterar docente responsavel");
+        	break;
+        case 10:
+        	System.out.println("Alterar data");
+        	break;
+        case 11:
+        	System.out.println("Alterar duracao");
+        	break;
         case 0:
             System.out.println("Returning to Main Menu...");
             return 0;
