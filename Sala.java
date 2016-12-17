@@ -103,6 +103,13 @@ public class Sala implements Serializable{
         return true;
     }
     
+    public void freeSala(){
+
+        timeslots.remove(timeslots.size()-1);
+        duration.remove(timeslots.size()-1);
+        
+    }
+    
     
     public boolean isOccupied(Date new_date, int time){
         Date cur_date, cur_end, new_end;
@@ -313,10 +320,32 @@ public class Sala implements Serializable{
             System.out.println("Antigo valor: " + ANSI_RED + dur + ANSI_RESET);
             System.out.println("Novo valor: " + ANSI_GREEN + new_dur + ANSI_RESET);
             
-        } //</editor-fold>
+        }
         
         return new_dur;
     }
+     //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="listOcupation()">
+    
+    public void listOcupation(){
+        if(timeslots.isEmpty()){
+            System.out.println("Sem ocupacao");
+            return;
+        }
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy 'at' HH:mm");
+        String ocupado;
+        
+        System.out.println("\n--------------Ocupacao da Sala "+ this.getId()+ "--------------\n");
+        for (int i = 0; i < timeslots.size(); i++) {
+            ocupado = sdf.format(timeslots.get(i)) + this.duration.get(i) +"\n";
+            System.out.println(ocupado);
+            
+        }
+        System.out.println("\n--------------------------------------\n");
+    }
+    
+//</editor-fold>
     
 }

@@ -49,8 +49,6 @@ public class Disciplina implements Serializable{
     
 
     //<editor-fold defaultstate="collapsed" desc="int listExams(String classe)">
-    
-    //Not working properly!
     public int listExams(String classe) {
         switch (classe) {
             case "normal":
@@ -421,11 +419,15 @@ public class Disciplina implements Serializable{
             
             sala = scan.nextInt();
             if(sala>=0 && sala <= count) {
-                    if(departamento.getSala(sala-1).reserveSala(temp, tempo)){
-                            break;
-                    } else {
-                            System.out.println("Sala is already occupied at that time");
-                    }
+                if(sala == 0){
+                    System.out.println("A cancelar criacao de exame...");
+                    return;
+                }
+                else if(departamento.getSala(sala-1).reserveSala(temp, tempo)){
+                        break;
+                } else {
+                        System.out.println("Sala is already occupied at that time");
+                }
             } else {
                     System.out.println("Insercao invalida");
             }
@@ -434,7 +436,7 @@ public class Disciplina implements Serializable{
         
         //<editor-fold defaultstate="collapsed" desc="choose responsavel">
         count = departamento.listPessoa("docente");
-            
+        
         if(count == 0){
             System.out.println("Nao existem docentes para colocar como responsaveis desta disciplina");
             System.out.println("Crie um docente no Menu de Pessoas!!!");
@@ -454,6 +456,12 @@ public class Disciplina implements Serializable{
             System.out.println("Insercao invalida!!!!!!");
         }
         //</editor-fold>
+        
+        if(docente == 0){
+            System.out.println("A cancelar criacao de exame...");
+            departamento.getSala(sala-1).freeSala();
+            return;
+        }
         
         switch(tipo) {
         	case 1:

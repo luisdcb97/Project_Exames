@@ -26,8 +26,6 @@ public class Main {
         departamento.readPessoasFromTXT();
         departamento.readCursosToOBJ();
         while(true){
-        	Sala sala = new Sala("kek");
-        	departamento.addSala(sala);
             menu_main(departamento);
         }
     }  
@@ -40,6 +38,7 @@ public class Main {
         System.out.println("=================== MENU PRINCIPAL =======================\n");
         System.out.println("[1] Gerir Cursos");
         System.out.println("[2] Gerir Pessoas");
+        System.out.println("[3] Gerir Salas");
         System.out.println("[0] Sair");
         System.out.println("\nInsira a sua escolha:");
 
@@ -57,6 +56,9 @@ public class Main {
                 break;
             case 2:
                 while(menu_pessoas(departamento) != 0);
+                break;
+            case 3:
+                while(menu_salas(departamento) != 0);
                 break;
             case 0:
                 System.out.println("Writing to Files...");
@@ -352,4 +354,46 @@ public class Main {
     } 
         return choice;
     }
+    
+    private static int menu_salas(DEI departamento){
+        int choice;
+        Scanner scan = new Scanner(System.in);
+        
+        System.out.println("=================== MENU SALAS =======================\n");
+        System.out.println("[1] Criar Sala");
+        System.out.println("[2] Listar Salas");
+        System.out.println("[3] Listar Ocupacao");
+        System.out.println("[0] Voltar");
+        System.out.println("\nInsira a sua escolha:");
+
+        while(!scan.hasNextInt()){
+            System.out.println("Insercao invalida!\nInsira um inteiro:");
+            scan.nextLine();
+        }
+        choice = scan.nextInt();
+
+        scan.nextLine(); // clears input
+
+        switch (choice) {
+            case 1:
+                departamento.createSala();
+                break;
+            case 2:
+                departamento.listSalas();
+                break;
+            case 3:
+                departamento.listSalaOcupation();
+                break;
+            case 0:
+                System.out.println("Returning to Main Menu...");
+                return 0;
+            default:
+                System.out.println("Escolha Invalida!");
+        }
+        
+        System.out.println("Prima ENTER para continuar");
+        scan.nextLine();
+        return choice;
+    }
+    
 }
