@@ -44,7 +44,7 @@ public class Curso implements Serializable{
     public void createDisciplina(DEI departamento){
         Scanner scan = new Scanner(System.in);
         String novo_nome;
-        
+       
         System.out.println("Insira o nome da nova disciplina:");
         novo_nome = scan.nextLine();
         
