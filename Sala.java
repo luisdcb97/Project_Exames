@@ -334,6 +334,9 @@ public class Sala implements Serializable{
     
   //<editor-fold defaultstate="collapsed" desc="listOcupation()">
         
+    /**
+     * Lists whether a sala is occupied or not and when it is occupied
+     */
     public void listOcupation(){
     	if(timeslots.isEmpty()){
             System.out.println("Sem ocupacao");

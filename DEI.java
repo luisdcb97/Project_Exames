@@ -1124,24 +1124,9 @@ public class DEI {
     }
 //</editor-fold>
     
-    
-//    /**
-//     * (OBSOLETE?) Returns an instance of class Sala from the ArrayList salas at index sala;
-//     * @param sala The index of the ArrayList to be used
-//     * @return Instance of class Sala
-//     */
-//    public Sala getSala(int sala) {
-//    	return salas.get(sala);
-//    }
-//    
-//    /**
-//     * (OBSOLETE?) Adds an instance of class Sala to the salas ArrayList
-//     * @param sala The instance of class Sala to be added
-//     */
-//    public void addSala(Sala sala) {
-//    	salas.add(sala);
-//    }
-    
+    /**
+     * Create a new sala using user input
+     */
     public void createSala() {
     	Sala sala;
     	String nome;
@@ -1156,6 +1141,9 @@ public class DEI {
     }
     
  // <editor-fold defaultstate="collapsed" desc="int listSalas()">
+    /**Lists all existing salas
+     * @return Integer number of existing salas
+     */
     public int listSalas(){
     	if(salas.isEmpty()){
     		System.out.println("Não existem salas para listar");
@@ -1174,7 +1162,10 @@ public class DEI {
         } //</editor-fold>
         
         // <editor-fold defaultstate="collapsed" desc="int listSalaOcupation()">
-       public void listSalaOcupation(){
+       /**
+     * Allows the user to request the occupation data of a Sala
+     */
+    public void listSalaOcupation(){
             int count = listSalas();
             if(count == 0){
                 return;
@@ -1206,7 +1197,12 @@ public class DEI {
             sala.listOcupation();
             
         } //</editor-fold>
-	     public Sala getSala(int sala) {
-	    	 return salas.get(sala);
+	     /**
+	      * Obtains Sala nr. "index" from the salas ArrayList and returns it
+	     * @param index 
+	     * @return returns sala nr. "index"
+	     */
+	    public Sala getSala(int index) {
+	    	 return salas.get(index);
 	     }
 }

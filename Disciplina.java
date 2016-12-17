@@ -690,6 +690,10 @@ public class Disciplina implements Serializable{
         System.out.println("Docente changed succesfully!");
     }
     
+    /**
+     * Obtains an Aluno from DEI and adds it to a disciplina
+     * @param departamento
+     */
     public void addAluno(DEI departamento){
     	         Aluno student = (Aluno) departamento.escolherPessoa("aluno");
     	         
@@ -701,7 +705,11 @@ public class Disciplina implements Serializable{
     	         System.out.println("Aluno "+ student.getName() +" adicionado a disciplina "+ this.getName());
     	     }
     	     
-    	     public void addDocente(DEI departamento){
+    	     /**
+    	      * Obtains a docente from DEI and adds it to a Disciplina
+    	     * @param departamento Source of docente
+    	     */
+    	    public void addDocente(DEI departamento){
     	         Docente teacher = (Docente) departamento.escolherPessoa("docente");
     	         
     	         if(teacher == null){
@@ -712,7 +720,10 @@ public class Disciplina implements Serializable{
     	         System.out.println("Docente "+ teacher.getName() +" adicionado a disciplina "+ this.getName());
     	     }
     	     
-    	     public void listDocentes(){
+    	     /**
+    	     * Lists all Docentes of a disciplina
+    	     */
+    	    public void listDocentes(){
     	         if(docentes.isEmpty()){
     	             System.out.println("Sem docentes para listar...");
     	             return;
@@ -724,7 +735,10 @@ public class Disciplina implements Serializable{
     	         System.out.println("\n-----------------------------------\n");
     	     }
     	     
-    	     public void listAlunos(){
+    	     /**
+    	     * Lists all Alunos of a disciplina
+    	     */
+    	    public void listAlunos(){
     	         if(alunos.isEmpty()){
     	             System.out.println("Sem alunos para listar...");
     	             return;
@@ -735,5 +749,21 @@ public class Disciplina implements Serializable{
     	         }
     	         System.out.println("\n-----------------------------------\n");
     	     }
+    	    
+    	    /**Lists all Exams of a disciplina
+    	     * @return number of exams in array
+    	     */
+    	    public int listAllExams() {
+    	    	if(exames.isEmpty()){
+    	    		System.out.println("Sem exames para listar...");
+    	    		return 0;
+    	    	}
+    	    	System.out.println("\n--------------- exames da disciplina " +this.getName()+" -------------\n");
+    	    	for(int i = 0;i<exames.size();i++) {
+    	    		System.out.println(exames.get(i));
+    	    	}
+    	    	System.out.println("\n-----------------------------------\n");
+    	    	return exames.size();
+    	    }
 }
 

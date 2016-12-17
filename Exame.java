@@ -33,6 +33,9 @@ abstract class Exame implements Serializable{
             this.docenteresponsavel = docenteresponsavel;
     }
 
+    /**
+     * Generates the notas of an exam
+     */
     void createNotas() {
         for(int i = 0; i < alunos.size();i++) {
             double grade = (int) (Math.random()*21);
@@ -40,12 +43,18 @@ abstract class Exame implements Serializable{
         }
     }
 
+    /**
+     * Lists the Alunos of an exam
+     */
     void listAlunos() {
         for(int i = 0;i<alunos.size();i++) {
             System.out.println(alunos.get(i).getName());
         }
     }
 
+    /**
+     * Lists Functionarios of an exam
+     */
     void listFunctionaros() {
         System.out.println("Docente responsavel: " + getDocenteresponsavel());
         for(int i = 0; i<vigilantes.size();i++) {
@@ -58,6 +67,9 @@ abstract class Exame implements Serializable{
         }
     }
 
+    /**
+     * Lists notes of an exam
+     */
     void listNotas() {
         for(int i = 0;i<alunos.size();i++) {
             System.out.println("Aluno : "+alunos.get(i).getName()+" | Nota: "+notas.get(i));
@@ -66,18 +78,31 @@ abstract class Exame implements Serializable{
 
     abstract void addAluno(Aluno a);
 
+    /**Returns the date of the exam
+     * @return Date data
+     */
     public Date getData() {
         return data;
     }
 
+    /**Set Date data as the date of the exam
+     * @param data The date to be set
+     */
     public void setData(Date data) {
         this.data = data;
     }
     
+    /**Returns the notas arraylist
+     * @return ArrayList(Double) 
+     */
     public ArrayList<Double> getNotas() {
         return this.notas;
     }
 
+    /**
+     * Checks whether an exam has generated notas, implying that the exam is finished.
+     * @return true if the exam is finished, false if otherwise
+     */
     protected boolean checkDone(){
         if( this.notas.size() > 0){
             System.out.println("Este Exame ja foi realizado!!!\nNao e possivel altera-lo");
@@ -87,6 +112,11 @@ abstract class Exame implements Serializable{
     }
     
     //<editor-fold defaultstate="collapsed" desc="boolean isAssociatedAluno(Aluno person)">
+    /**
+     * Checks whether a person is inscribed for an exam
+     * @param person The person we're checking
+     * @return returns true if the person is inscribed, or false if otherwise
+     */
     public boolean isAssociatedAluno(Aluno person){
         
         for (int i = 0; i < alunos.size(); i++) {
@@ -102,6 +132,11 @@ abstract class Exame implements Serializable{
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="boolean isAssociatedDocente(Docente person)">
+    /**
+     * Checks whether a Docent is associated with an exam
+     * @param person The Docent that's being checked
+     * @return true if the Docent is associated, false if not
+     */
     public boolean isAssociatedDocente(Docente person){
         if(person.getMecano() == getDocenteresponsavel().getMecano()){
             return true;
@@ -120,6 +155,11 @@ abstract class Exame implements Serializable{
 //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="boolean isAssociatedNaoDocente(NaoDocente person)">
+    /**
+     * Checks whether a naodocente is associated with an exam
+     * @param person The naodocente that's being checked
+     * @return true if the naodocente is associated, false if not
+     */
     public boolean isAssociatedNaoDocente(NaoDocente person){
         for (int i = 0; i < naodocentes.size(); i++) {
             NaoDocente get = naodocentes.get(i);

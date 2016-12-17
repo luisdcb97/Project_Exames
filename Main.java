@@ -328,14 +328,23 @@ public class Main {
         	departamento.getSala(sala).freeSala(sala);
             break;
         case 3:
-        	//Checks if any exams exist
         	disciplina.listExams("normal");
         	disciplina.listExams("especial");
         	disciplina.listExams("recurso");
             break;
         case 4:
-        	System.out.println("Adicionar vigilantes");
-            break;
+        	disciplina.listDocentes();
+        	System.out.println("Choose a Docente");
+        	choice = scan.nextInt();
+        	disciplina.docentes.get(choice-1);
+        	System.out.println(disciplina.docentes.get(choice-1).getName()+" has been chosen!");
+        	int exams;
+        	exams =disciplina.listAllExams();
+        	System.out.println("Choose the relevant exam [1-"+exams+"]");
+            exams = scan.nextInt();
+            disciplina.exames.get(exams-1).vigilantes.add(disciplina.docentes.get(choice-1));
+            System.out.println("Docente added succesfully!");
+        	break;
         case 5:
         	System.out.println("Adicionar naodocentes");
         	break;
