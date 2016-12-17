@@ -350,7 +350,7 @@ public class DEI {
                 }
             }
             
-            System.out.println(get);
+            System.out.println("["+count+"] "+get);
             count++;
             
             
@@ -477,6 +477,22 @@ public class DEI {
             count++;
         }
         System.out.println("-------------------------------\n");
+        
+        return count;
+        
+    } //</editor-fold>
+    
+ // <editor-fold defaultstate="collapsed" desc="int listCursos()">
+    public int listSalas(){
+        if(salas.isEmpty()){
+            System.out.println("Não existem salas para listar");
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i < salas.size(); i++) {
+            System.out.println(i+1 + " " + salas.get(i));
+            count++;
+        }
         
         return count;
         
@@ -1017,4 +1033,8 @@ public class DEI {
         
     }
 //</editor-fold>
+    
+    public void addSala(Sala a) {
+    	salas.add(a);
+    }
 }
