@@ -103,10 +103,10 @@ public class Sala implements Serializable{
         return true;
     }
     
-    public void freeSala(){
-
-        timeslots.remove(timeslots.size()-1);
-        duration.remove(timeslots.size()-1);
+    public void freeSala(Date dt, int dur){
+        int rem = timeslots.indexOf(dt);
+        timeslots.remove(rem);
+        duration.remove(rem);
         
     }
     

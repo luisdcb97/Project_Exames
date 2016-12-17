@@ -459,7 +459,7 @@ public class Disciplina implements Serializable{
         
         if(docente == 0){
             System.out.println("A cancelar criacao de exame...");
-            departamento.getSala(sala-1).freeSala();
+            departamento.getSala(sala-1).freeSala(temp, tempo);
             return;
         }
         
