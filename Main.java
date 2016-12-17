@@ -25,7 +25,6 @@ public class Main {
         
         departamento.readPessoasFromTXT();
         departamento.readCursosToOBJ();
-    	departamento.createSala();
         while(true){
             menu_main(departamento);
         }

@@ -30,7 +30,6 @@ public class Disciplina implements Serializable{
 
     //<editor-fold defaultstate="collapsed" desc="int listExams(String classe)">
     
-    //Not working properly!
     /**
      * Returns a list of all Exams present of the given class.
      * The classe argument must be of type normal, recurso or especial.
