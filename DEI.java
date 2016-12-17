@@ -578,8 +578,13 @@ public class DEI {
                 break;
             }
         }
+        if(escolha == 0){
+            System.out.println("A cancelar escolha...");
+            return null;
+        }
         
-        return pessoa.get(escolha-1);
+        
+        return getPessoa(classe, escolha-1);
         
     }
 //</editor-fold>

@@ -222,8 +222,10 @@ public class Main {
         System.out.println("[4] Alterar Duracao");
         System.out.println("[5] Alterar Grau");
         System.out.println("[6] Gerir Exames");
-        System.out.println("[5] Adicionar Docente");
-        System.out.println("[6] Adicionar Aluno");
+        System.out.println("[7] Adicionar Docente");
+        System.out.println("[8] Adicionar Aluno");
+        System.out.println("[9] Listar Docentes");
+        System.out.println("[10] Listar Alunos");
         System.out.println("[0] Voltar");
         System.out.println("\nInsira a sua escolha:");
 
@@ -251,7 +253,7 @@ public class Main {
             case 5:
                 curso.alteraDados("grau");
                 break;
-            case 6:
+            case 6:case 7:case 8:case 9:case 10:
             	escolha = curso.escolheDisciplina();
 
                 if(escolha == -1){
@@ -265,40 +267,25 @@ public class Main {
                 
                 altera = curso.getDisciplina(escolha-1);
                 
-                while(menu_exames(departamento, altera) != 0);
-                    
-                
-                break;
-            case 7:
-                escolha = curso.escolheDisciplina();
-
-                if(escolha == -1){
-                    System.out.println("Nao existem cursos");
+                switch (choice) {
+                case 6:
+                    while(menu_exames(departamento, altera) != 0);  
                     break;
-                }
-                else if (escolha == 0) {
-                    System.out.println("A cancelar...");
+                case 7:
+                    altera.addDocente(departamento);
                     break;
-                }
-                
-                altera = curso.getDisciplina(escolha-1);
-                
-                altera.addDocente(departamento);
-                break;
-            case 8:
-                escolha = curso.escolheDisciplina();
-
-                if(escolha == -1){
-                    System.out.println("Nao existem cursos");
+                case 8:
+                    altera.addAluno(departamento);
                     break;
-                }
-                else if (escolha == 0) {
-                    System.out.println("A cancelar...");
+                case 9:
+                    altera.listDocentes();
                     break;
-                }
-                
-                altera = curso.getDisciplina(escolha-1);
-                altera.addAluno(departamento);
+                case 10:
+                    altera.listAlunos();
+                    break;
+                default:
+                    break;
+            }
                 break;
             case 0:
                 System.out.println("Returning to Main Menu...");

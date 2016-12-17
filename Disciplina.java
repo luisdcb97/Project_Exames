@@ -126,6 +126,30 @@ public class Disciplina implements Serializable{
         System.out.println("Docente "+ teacher.getName() +" adicionado a disciplina "+ this.getName());
     }
     
+    public void listDocentes(){
+        if(docentes.isEmpty()){
+            System.out.println("Sem docentes para listar...");
+            return;
+        }
+        System.out.println("\n--------------- Docentes da disciplina " +this.getName()+" -------------\n");
+        for (int i = 0; i < docentes.size(); i++) {
+            System.out.println(docentes.get(i));
+        }
+        System.out.println("\n-----------------------------------\n");
+    }
+    
+    public void listAlunos(){
+        if(alunos.isEmpty()){
+            System.out.println("Sem alunos para listar...");
+            return;
+        }
+        System.out.println("\n--------------- Alunos da disciplina " +this.getName()+" -------------\n");
+        for (int i = 0; i < alunos.size(); i++) {
+            System.out.println(alunos.get(i));
+        }
+        System.out.println("\n-----------------------------------\n");
+    }
+    
     public String getName() {
         return name;
     }
